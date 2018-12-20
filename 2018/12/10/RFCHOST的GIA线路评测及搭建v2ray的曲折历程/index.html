@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/10/RFCHOST的GIA线路评测及搭建v2ray的曲折历程/shdaytime.PNG">
 <meta property="og:image" content="http://yoursite.com/2018/12/10/RFCHOST的GIA线路评测及搭建v2ray的曲折历程/ladaytime.PNG">
 <meta property="og:image" content="http://yoursite.com/2018/12/10/RFCHOST的GIA线路评测及搭建v2ray的曲折历程/timediff.PNG">
-<meta property="og:updated_time" content="2018-12-11T08:57:50.000Z">
+<meta property="og:updated_time" content="2018-12-20T13:46:53.339Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RFCHOST的GIA线路评测及搭建v2ray的曲折历程">
 <meta name="twitter:description" content="RFCHOST GIA线路评测，及在其服务器上搭建v2ray的曲折历程。">
@@ -98,11 +98,10 @@
 <h1 id="1-事起"><a href="#1-事起" class="headerlink" title="1. 事起"></a>1. 事起</h1><p>之前买的搬瓦工GIA线路，其实用的还行，就是不知道为啥播spotify有点卡。照说youtube都不卡spotify实在是没理由卡。那就顺便看看新的选择吧，看到网上RFCHOST风评不错，那就试试看吧。<br>他家GIA线路是月付8.99 USD，但是选季付及以上都是7.99 USD每月，竟然没有优惠。这个价格和搬瓦工，甚至和阿里云国际比确实是没啥竞争力。<br>付款暂时不支持信用卡，只能用支付宝。有点蛋疼。</p>
 <h1 id="2-评测"><a href="#2-评测" class="headerlink" title="2. 评测"></a>2. 评测</h1><p>在周末的晚上和白天分别测了一次，结果比较稳定。</p>
 <h2 id="上海电信Traceroute"><a href="#上海电信Traceroute" class="headerlink" title="上海电信Traceroute"></a>上海电信Traceroute</h2><p>可以看到是CN2的线路。<br><img src="/2018/12/10/RFCHOST的GIA线路评测及搭建v2ray的曲折历程/shtr.PNG"></p>
-<p>#上海联通Traceroute<br>也是直接走的电信出口。<br><img src="/2018/12/10/RFCHOST的GIA线路评测及搭建v2ray的曲折历程/cutr.PNG"></p>
+<h2 id="上海联通Traceroute"><a href="#上海联通Traceroute" class="headerlink" title="上海联通Traceroute"></a>上海联通Traceroute</h2><p>也是直接走的电信出口。<br><img src="/2018/12/10/RFCHOST的GIA线路评测及搭建v2ray的曲折历程/cutr.PNG"></p>
 <h2 id="回程Traceroute到上海BGP"><a href="#回程Traceroute到上海BGP" class="headerlink" title="回程Traceroute到上海BGP"></a>回程Traceroute到上海BGP</h2><img src="/2018/12/10/RFCHOST的GIA线路评测及搭建v2ray的曲折历程/bgptr.PNG">
 <h2 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h2><p><strong>周末白天</strong><br>白天的情况比较好。<br>这台机器的ip估计是从上海广播的，speedtest直接识别为上海的ip了，给匹配了个上海的测速点：<br><img src="/2018/12/10/RFCHOST的GIA线路评测及搭建v2ray的曲折历程/shdaytime.PNG"></p>
 <p>强行指定为洛杉矶的测速点之后：<br><img src="/2018/12/10/RFCHOST的GIA线路评测及搭建v2ray的曲折历程/ladaytime.PNG"></p>
-<p><strong>周末晚上</strong></p>
 <h1 id="3-在该机器上安装v2ray遇到的坑"><a href="#3-在该机器上安装v2ray遇到的坑" class="headerlink" title="3. 在该机器上安装v2ray遇到的坑"></a>3. 在该机器上安装v2ray遇到的坑</h1><h2 id="默认不配置SSH"><a href="#默认不配置SSH" class="headerlink" title="默认不配置SSH"></a>默认不配置SSH</h2><p>他们家的机器可能都是默认不配置SSH的。只能从官网进VNC安装SSH。<br>要注意他们是开始SELinux的，所以如果直接制定非22端口的SSH连接的话会显示permission denied，不能绑定：  </p>
 <pre><code>Dec 09 01:16:33 RFCHOST-181208-FF9V sshd[16197]: error: Bind to port 1025 on 0.0.0.0 failed: Permission denied.
 Dec 09 01:16:33 RFCHOST-181208-FF9V sshd[16197]: error: Bind to port 1025 on :: failed: Permission denied.
