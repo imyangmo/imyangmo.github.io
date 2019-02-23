@@ -1,39 +1,28 @@
-# 指定语言环境
+
 language: node_js
-# 指定需要sudo权限
+
 sudo: required
-# 指定node_js版本
+
 node_js: --lts
-# 指定缓存模块，可选。缓存可加快编译速度。
+
 cache:
   directories:
     - node_modules
 
-# 指定博客源码分支，因人而异。hexo博客源码托管在独立repo则不用设置此项
 branches:
   only:
     - hexo 
 
-before_install:
-  - npm install -g hexo-cli
-
-# Start: Build Lifecycle
 install:
-  - npm install
-  - npm install hexo-deployer-git --save
-
-before_script:
-  - git config --global user.name 'imyangmo'
-  - git config --global user.email 'imyangmo@gmail.com'
-  # 替换同目录下的_config.yml文件中gh_token字符串为travis后台刚才配置的变量，注意此处sed命令用了双引号。单引号无效！
-  - sed -i "s/gh_token/${REPO_TOKEN}/g" ./_config.yml
-
-# 执行清缓存，生成网页操作
+    - npm install # 安装hexo及插件
 script:
-  - hexo clean
-  - hexo generate
-
-# 设置git提交名，邮箱；替换真实token到_config.yml文件，最后depoy部署
+    - hexo clean # 清除
+    - hexo g # 生成
 after_script:
-  - hexo deploy
-# End: Build LifeCycle
+    - cd ./public
+    - git init
+    - git config user.name "imyangmo" # 修改name
+    - git config user.email "imyangmo@gmail.com" # 修改email
+    - git add .
+    - git commit -m "Travis CI Auto Builder"
+    - git push --force --quiet "https://${REPO_TOKEN}@github.com/imyangmo/imyangmo.github.io.git" master:master
