@@ -24,7 +24,7 @@ service sshd status
 看一下是不是在监听指定端口号。
 
 # 2. 更改密码
-```passwd```命令敲进去，换密码。
+`passwd`命令敲进去，换密码。
 
 # 3. 关掉firewalld
 centos 7自带一个firewalld防火墙，用iptables就行了，firewalld用处不是很大。
