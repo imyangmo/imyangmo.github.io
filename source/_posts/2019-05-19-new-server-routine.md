@@ -1,5 +1,5 @@
 ---
-title: new-server-routine
+title: 新vps的一般初始化步骤
 date: 2019-05-19 13:20:43
 tags:
 - 新vps
@@ -10,6 +10,9 @@ tags:
 - 更改ssh端口
 - 关闭firewalld
 ---
+记录一下我买到新服务器的一般的一套流程。我一般都是用centos 7。
+包含更改ssh端口、更改密码、关掉firewalld、升级内核、开启bbr和清空iptables规则。
+<!-- more -->
 以下所有操作均是在root账户下操作。
 # 1. 更改ssh端口
 
@@ -32,7 +35,7 @@ centos 7自带一个firewalld防火墙，用iptables就行了，firewalld用处�
 ```
 firewall-cmd --state
 ```
-如果是```running```那就要先把服务关了：
+如果是`running`那就要先把服务关了：
 ```
 systemctl stop firewalld
 ```
@@ -45,7 +48,7 @@ systemctl mask firewalld
 
 
 # 4. 升级内核
-先```yum update```一波，再导入ELRepo公钥
+先`yum update`一波，再导入ELRepo公钥
 ```
 rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 ```
@@ -78,9 +81,9 @@ grub2-set-default 0
 ```
 grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
-哦了，```reboot```即可。
+哦了，`reboot`即可。
 
-重启完看一下```uname -r```是不是用新内核了：
+重启完看一下`uname -r`是不是用新内核了：
 ```
 [root@test2 ~]# uname -r
 5.1.3-1.el7.elrepo.x86_64
@@ -102,7 +105,7 @@ echo "net.ipv4.tcp_congestion_control=bbr" | sudo tee --append /etc/sysctl.conf
 ```
 sysctl -p
 ```
-再```lsmod | grep bbr```看一下，成了。
+再`lsmod | grep bbr`看一下，成了。
 [参考](https://github.com/iMeiji/shadowsocks_install/wiki/%E5%BC%80%E5%90%AF-TCP-BBR-%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95)
 # 5. 清空iptables规则
 个人习惯把iptables清除一遍，再做配置。
@@ -130,10 +133,10 @@ iptables -t raw -P PREROUTING ACCEPT
 iptables -t raw -P OUTPUT ACCEPT  
  
 ```
-再```iptables-save```看一下配置是不是清除干净了。
+再`iptables-save`看一下配置是不是清除干净了。
 [参考](http://os.51cto.com/art/201103/249518.htm)
 
-之后再```service iptables save```保存一下。如果出现：
+之后再`service iptables save`保存一下。如果出现：
 ```
 [root@test2 ~]# service iptables save
 The service command supports only basic LSB actions (start, stop, restart, try-restart, reload, force-reload, status). For other actions, please try to use systemctl.
