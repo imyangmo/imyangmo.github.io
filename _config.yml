@@ -8,12 +8,12 @@ subtitle: i have these lucid dreams where i can't move a thing.
 description: 一个可能什么都有的博客。
 keywords:
 author: NvrMind
-language:
+language: 
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: https://shiguang.us
 root: /
 permalink: :title.html
 permalink_defaults:
@@ -86,4 +86,7 @@ prism_plugin:
   mode: 'preprocess'    # realtime/preprocess
   theme: 'default'
   line_number: false    # default false
+
+sitemap:
+  path: sitemap.xml
 
