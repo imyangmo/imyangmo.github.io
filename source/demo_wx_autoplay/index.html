@@ -1,0 +1,45 @@
+---
+layout: false
+---
+<html>
+
+<body>
+
+    <div id="bgmvideo"></div>
+    <!-- <audio src="./auto.mp3" autoplay controls></audio> -->
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+
+function autoPlayAudio() {
+        wx.config({
+            // 配置信息, 即使不正确也能使用 wx.ready
+            debug: false,
+            appId: '',
+            timestamp: 1,
+            nonceStr: '',
+            signature: '',
+            jsApiList: []
+        });
+        wx.ready(function() {
+            var globalAudio=document.getElementById("player");
+            globalAudio.play();
+            alert("asdasd")
+        });
+};
+// 解决ios音乐不自动播放的问题
+
+
+$(document).ready(function () {
+                 $("#bgmvideo").append(
+                    '<audio id="player" src="./auto.mp3" controls></audio>'
+                );
+                autoPlayAudio();
+// if(document.getElementById("player").paused){document.getElementById("player").play()}
+
+        });
+
+    </script>
+</body>
+
+</html>
