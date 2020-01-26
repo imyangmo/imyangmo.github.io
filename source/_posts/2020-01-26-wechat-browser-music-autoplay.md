@@ -4,7 +4,7 @@ date: 2019-12-06 11:01:52
 tags:
 - 微信
 - Wechat
-- <audio>
+- audio
 - 浏览器
 - javascipt
 - 自动播放
