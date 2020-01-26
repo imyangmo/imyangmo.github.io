@@ -1,43 +1,65 @@
----
+﻿---
 layout: false
 ---
 <html>
-
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
 <body>
 
-    <div id="bgmvideo"></div>
-    <!-- <audio src="./auto.mp3" autoplay controls></audio> -->
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <p id="status"></p>
+
+    <img src="./demo.png" />
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
+        // function audioLoader(){
+        //     var globalAudio = document.getElementById("player");
+        //     var buffered = globalAudio.buffered;
+        //     var loaded;
+        //     if (buffered.length){
+        //         loaded = 100 * buffered.end(0) / globalAudio.duration;
+        //         document.getElementById("loading").innerHTML = loaded;
+        //     }
+        //     setTimeout(audioLoader,50);
+        // }
 
-function autoPlayAudio() {
-        wx.config({
-            // 配置信息, 即使不正确也能使用 wx.ready
-            debug: false,
-            appId: '',
-            timestamp: 1,
-            nonceStr: '',
-            signature: '',
-            jsApiList: []
-        });
-        wx.ready(function() {
-            var globalAudio=document.getElementById("player");
-            globalAudio.play();
-            alert("asdasd")
-        });
-};
-// 解决ios音乐不自动播放的问题
+        function autoPlayAudio() {
+            wx.config({
+                // 配置信息, 即使不正确也能使用 wx.ready
+                debug: false,
+                appId: '',
+                timestamp: 1,
+                nonceStr: '',
+                signature: '',
+                jsApiList: []
+            });
+            wx.ready(function () {
+                var globalAudio = document.getElementById("player");
+                globalAudio.play();
+            });
+        };
 
+        document.addEventListener("DOMContentLoaded", function(e){
 
-$(document).ready(function () {
-                 $("#bgmvideo").append(
-                    '<audio id="player" src="./auto.mp3" controls></audio>'
-                );
-                autoPlayAudio();
-// if(document.getElementById("player").paused){document.getElementById("player").play()}
+            var audioNode = document.createElement("audio");
+            audioNode.setAttribute("src","./auto.mp3");
+            audioNode.setAttribute("id","player");
+            audioNode.controls = true;
+            audioNode.setAttribute("preload","auto");
 
-        });
+            document.body.appendChild(audioNode);
+
+            var globalAudio = document.getElementById("player");
+            var statusP = document.getElementById("status");
+            globalAudio.onloadstart = function(){
+                console.log("开始加载")
+                statusP.innerHTML = "正在加载";
+                globalAudio.oncanplay = function(){
+                    statusP.innerHTML = "加载完成";
+                    autoPlayAudio();
+                }
+            }
+        })
 
     </script>
 </body>
