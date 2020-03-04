@@ -21,7 +21,7 @@ script:
 after_script:
     - cd ./public
     - touch CNAME
-    - echo "shiguang.us" > CNAME
+    - echo "prelude.cc" > CNAME
     - git init
     - git config user.name "imyangmo" # 修改name
     - git config user.email "imyangmo@gmail.com" # 修改email
