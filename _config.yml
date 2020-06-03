@@ -41,7 +41,7 @@ post_asset_folder: true
 relative_link: false
 future: true
 highlight:
-  enable: false
+  enable: true
   line_number: true
   auto_detect: false
   tab_replace:
@@ -92,3 +92,21 @@ prism_plugin:
 sitemap:
   path: sitemap.xml
 
+markdown:
+  render:
+    html: true
+    xhtmlOut: false
+    breaks: true
+    linkify: true
+    typographer: true
+    quotes: '“”‘’'
+  plugins:
+  anchors:
+    level: 1
+    collisionSuffix: 'v'
+    permalink: true
+    permalinkClass: 'header-anchor'
+    permalinkSide: 'left'
+    permalinkSymbol: '¶'
+    case: 0
+    separator: ''
