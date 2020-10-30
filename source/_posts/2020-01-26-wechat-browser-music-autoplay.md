@@ -86,5 +86,5 @@ globalAudio.onloadstart = function(){
 ```
 
 # 4. 完整代码
-完整代码见 https://shiguang.us/demo_wx_autoplay/ 托管在github上加载可能有点慢。
+完整代码见 https://prelude.cc/demo_wx_autoplay/ 托管在github上加载可能有点慢。
 {% asset_img demo.png %}
