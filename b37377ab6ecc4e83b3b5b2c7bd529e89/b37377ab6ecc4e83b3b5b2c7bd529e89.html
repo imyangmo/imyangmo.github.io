@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>RFCHOST的GIA线路评测及搭建v2ray的曲折历程 - PRELUDE</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../style/basic_styles.css'>
+    <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src=https://www.googletagmanager.com/gtag/js?id=UA-92314993-3></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-92314993-3');
+    </script>
+</head>
+<body>
+
+
+    <div class="container">
+    
+        <div class="header-article">
+    <p><a href="../index.html">PRELUDE</a></p>
+</div>
+    
+    <div>
+        <h1 class="page-title">RFCHOST的GIA线路评测及搭建v2ray的曲折历程</h1>
+        
+
+
+    
+
+    
+<p>
+        
+            
+<span class=" default">注：该文章写于2018年12月，信息未必能够反映现今状况。</span>
+
+        
+    </p>
+    
+
+    
+<h2>
+        
+            
+<span class=" default">一、</span>
+
+        
+            
+<span class=" bold default">事起</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" default">之前买的搬瓦工GIA线路，其实用的还行，就是不知道为啥播spotify有点卡。照说youtube都不卡spotify实在是没理由卡。那就顺便看看新的选择吧，看到网上RFCHOST风评不错，那就试试看吧。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">他家GIA线路是月付8.99 USD，但是选季付及以上都是7.99 USD每月，竟然没有优惠。这个价格和搬瓦工，甚至和阿里云国际比确实是没啥竞争力。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">付款暂时不支持信用卡，只能用支付宝。有点蛋疼。</span>
+
+        
+    </p>
+    
+
+    
+<h2>
+        
+            
+<span class=" default">二、</span>
+
+        
+            
+<span class=" bold default">评测</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" default">在周末的晚上和白天分别测了一次，结果比较稳定。</span>
+
+        
+    </p>
+    
+
+    
+<h3>
+        
+            
+<span class=" default">2.1 </span>
+
+        
+            
+<span class=" bold default">上海电信Traceroute</span>
+
+        
+    </h3>
+    
+
+    
+<p>
+        
+            
+<span class=" default">可以看到是CN2的线路。</span>
+
+        
+    </p>
+    
+
+    
+<img src=./281d32fc-c185-11ec-9c64-e454e80e6779></img>
+    
+
+    
+<h3>
+        
+            
+<span class=" default">2.2 </span>
+
+        
+            
+<span class=" bold default">上海联通Traceroute</span>
+
+        
+    </h3>
+    
+
+    
+<p>
+        
+            
+<span class=" default">也是直接走的电信出口。</span>
+
+        
+    </p>
+    
+
+    
+<img src=./296725af-c185-11ec-9adc-e454e80e6779></img>
+    
+
+    
+<h3>
+        
+            
+<span class=" default">2.3 </span>
+
+        
+            
+<span class=" bold default">回程Traceroute到上海BGP</span>
+
+        
+    </h3>
+    
+
+    
+<img src=./2a19ff02-c185-11ec-91f4-e454e80e6779></img>
+    
+
+    
+<h3>
+        
+            
+<span class=" default">2.4 带宽</span>
+
+        
+    </h3>
+    
+
+    
+<p>
+        
+            
+<span class=" default">周末白天的情况比较好。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">这台机器的ip估计是从上海广播的，speedtest直接识别为上海的ip了，给匹配了个上海的测速点：</span>
+
+        
+    </p>
+    
+
+    
+<img src=./2b273f63-c185-11ec-aaa0-e454e80e6779></img>
+    
+
+    
+<p>
+        
+            
+<span class=" default">强行指定为洛杉矶的测速点之后：</span>
+
+        
+    </p>
+    
+
+    
+<img src=./2bbc855a-c185-11ec-b3bd-e454e80e6779></img>
+    
+
+    
+<h2>
+        
+            
+<span class=" default">三、</span>
+
+        
+            
+<span class=" bold default">在该机器上安装v2ray遇到的坑</span>
+
+        
+    </h2>
+    
+
+    
+<h3>
+        
+            
+<span class=" default">3.1 </span>
+
+        
+            
+<span class=" bold default">默认不配置SSH</span>
+
+        
+    </h3>
+    
+
+    
+<p>
+        
+            
+<span class=" default">他们家的机器可能都是默认不配置SSH的。只能从官网进VNC安装SSH。
+要注意他们是开始SELinux的，所以如果直接制定非22端口的SSH连接的话会显示permission denied，不能绑定：</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-bash>
+Dec 09 01:16:33 RFCHOST-181208-FF9V sshd[16197]: error: Bind to port 1025 on 0.0.0.0 failed: Permission denied.
+Dec 09 01:16:33 RFCHOST-181208-FF9V sshd[16197]: error: Bind to port 1025 on :: failed: Permission denied.
+</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" default">所以先要去把SELinux的SSH端口号改了。安装一下SEManage</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-bash>
+yum install policycoreutils-python
+</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" default">然后改SSH端口：</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-bash>
+semanage port -a -t ssh_port_t -p tcp 1234
+</code></pre>
+    
+
+    
+<h3>
+        
+            
+<span class=" default">3.2 </span>
+
+        
+            
+<span class=" bold default">系统时钟不同步</span>
+
+        
+    </h3>
+    
+
+    
+<p>
+        
+            
+<span class=" default">这个坑真的是神坑。v2ray对于客户端和服务端的时间差不得超过90秒，我在配置完成v2ray之后，之前另外一台服务器上用的好好的同一个配置文件，这台服务器不行。chrome打开直接显示:</span>
+
+        
+    </p>
+    
+
+    
+<img src=./2c5b849f-c185-11ec-99d0-e454e80e6779></img>
+    
+
+    
+<pre><code class=language-bash>
+无法访问此网站 www.google.com 意外终止了连接。
+</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" default">原本以为是防火墙的原因没开端口。直接清空</span>
+
+        
+            
+<span class=" code default">iptables</span>
+
+        
+            
+<span class=" default">，</span>
+
+        
+            
+<span class=" code default">stop firewalld</span>
+
+        
+            
+<span class=" default">，仍然不行。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">使用nmap查看端口状态，也是显示为</span>
+
+        
+            
+<span class=" code default">open</span>
+
+        
+            
+<span class=" default">，十分蛋疼。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">突然想到之前帮别人配置过一次遇到过类似的问题。</span>
+
+        
+            
+<span class=" code default">date -R</span>
+
+        
+            
+<span class=" default">查看系统时间，果然错了。改完修复了。</span>
+
+        
+    </p>
+    
+
+    
+<h3>
+        
+            
+<span class=" default">3.3 </span>
+
+        
+            
+<span class=" bold default">默认同时开启</span>
+
+        
+            
+<span class=" bold code default">iptables</span>
+
+        
+            
+<span class=" bold default">和</span>
+
+        
+            
+<span class=" bold code default">firewalld</span>
+
+        
+    </h3>
+    
+
+    
+<p>
+        
+            
+<span class=" default">我是知道centos 7是默认开始firewalld的，但是没想到这台机器同时开启了iptables和firewalld...第一次配置的时候是没发现这个问题，直到nmap扫描端口是</span>
+
+        
+            
+<span class=" code default">filtered</span>
+
+        
+            
+<span class=" default">的才发觉到。直接禁用firewalld：</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-bash>
+service firewalld stop
+systemctl disable firewalld.service
+</code></pre>
+    
+
+    </div>
+    <div class="footer">
+    <p>Created by <a href="https://github.com/imyangmo/notionpaper">NotionPaper</a>, a tool that helps you use Notion like a CMS. </p>
+    <p>This site uses <a href="https://simplecss.org/">Simple.css</a></p>
+</div>
+
+</div>
+</body>
+</html>
