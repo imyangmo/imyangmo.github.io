@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>如何使用开放图谱(open graph)在facebook / LinkedIn上分享网页时显示卡片 - PRELUDE</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../style/basic_styles.css'>
+    <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src=https://www.googletagmanager.com/gtag/js?id=UA-92314993-3></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-92314993-3');
+    </script>
+</head>
+<body>
+
+    <div style="position: absolute; height: 20vw;width: 100%;z-index: 0;">
+        
+    </div>
+
+
+    <div class="container">
+    
+        <div class="header-article">
+    <p><a href="../index.html">PRELUDE</a></p>
+</div>
+    
+    <div>
+        <h1 class="page-title">如何使用开放图谱(open graph)在facebook / LinkedIn上分享网页时显示卡片</h1>
+        
+
+
+    
+<p>
+        
+            
+<span class=" default">最近做了个案例，客户要求分享在facebook和linkedin上的网页链接是可以显示成卡片样式的。了解了一下开放图谱和使用元数据实现。</span>
+
+        
+    </p>
+    
+
+    
+<h2>
+        
+            
+<span class=" bold default">1. 基础</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" default">最近做了个案例，客户要求分享链接在facebook上是这种卡片式的：</span>
+
+        
+    </p>
+    
+
+    
+<img src=./e159809f-ec8c-11ec-a208-b060885df61e></img>
+    
+
+    
+<p>
+        
+            
+<span class=" default">找了一下资料，一个叫facebook开放图谱的api，可以实现这种效果。实际上就是用的HTML的元数据(meta data)标签放入指定内容，这样facebook的爬虫就能抓取并展现出来。实际上linkedin也支持这样的元数据并展示成卡片样式：</span>
+
+        
+    </p>
+    
+
+    
+<img src=./e2c2319d-ec8c-11ec-a5cf-b060885df61e></img>
+    
+
+    
+<p>
+        
+            
+<a href=https://developers.facebook.com/docs/sharing/webmasters/ class=" default">facebook</a>
+
+        
+            
+<span class=" default">和</span>
+
+        
+            
+<a href=https://www.linkedin.com/help/linkedin/answer/46687/making-your-website-shareable-on-linkedin?lang=en class=" default">linkedin</a>
+
+        
+            
+<span class=" default">官方给出了文档，应该加入怎样的元数据。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">基本的就是如下：</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-javascript>&lt;meta property=&#34;og:url&#34;                content=&#34;点击卡片打开的链接&#34; /&gt;
+&lt;meta property=&#34;og:title&#34;              content=&#34;显示的卡片标题&#34; /&gt;
+&lt;meta property=&#34;og:description&#34;        content=&#34;显示的卡片描述&#34; /&gt;
+&lt;meta property=&#34;og:image&#34;              content=&#34;显示的缩略图 / banner图&#34; /&gt;</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" default">这四个元数据是两个站都支持的，也是最基本的，只要有这四个元素就可以显示出最基本的样式：</span>
+
+        
+    </p>
+    
+
+    
+<img src=./e4773805-ec8c-11ec-a414-b060885df61e></img>
+    
+
+    
+<h2>
+        
+            
+<span class=" bold default">2. 调试工具</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" default">在加上元数据之后可能由于facebook和linkedin的爬虫还没抓取，所以分享出来还是只是一个纯文字的链接。所以这里说一下怎么更快的让这两个站去抓链接以生成开放图谱的卡片。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">在我粗略的实验看来，这两个站的策略似乎是有一定分享量才会去抓页面信息，主动抓取似乎得等他们去刷新。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">这里有两个工具：一个是facebook的</span>
+
+        
+            
+<a href=https://developers.facebook.com/tools/debug/sharing/ class=" default">sharing debugger</a>
+
+        
+            
+<span class=" default">，一个是linkedin的</span>
+
+        
+            
+<a href=https://www.linkedin.com/post-inspector/inspect/ class=" default">post inspector</a>
+
+        
+            
+<span class=" default">，这两工具可以查看预览你的网址在这两个站分享出来的样式。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">facebook的sharing debugger可以根据现有的网页内容给出他们实际所获取到的元数据信息，并给出预览。同时你也可以点击Time Scraped的右边的</span>
+
+        
+            
+<span class=" code default">Scrape Again</span>
+
+        
+            
+<span class=" default">按钮重新让他们获取一次信息。</span>
+
+        
+    </p>
+    
+
+    
+<img src=./e5a93d5d-ec8c-11ec-bb38-b060885df61e></img>
+    
+
+    
+<p>
+        
+            
+<span class=" default">linkedin的post inspector可以给出关于网页内容相关的建议，比如图片尺寸小了、描述太短了等等的，相比facebook只会给出技术方面建议要好得多。</span>
+
+        
+    </p>
+    
+
+    
+<img src=./e6d375e9-ec8c-11ec-8a5c-b060885df61e></img>
+    
+
+    </div>
+    <div class="footer">
+    <p>Created by <a href="https://github.com/imyangmo/notionpaper">NotionPaper</a>, a tool that helps you use Notion like a CMS. </p>
+    <p>This site uses <a href="https://simplecss.org/">Simple.css</a></p>
+</div>
+
+</div>
+</body>
+</html>

@@ -21,6 +21,10 @@
 </head>
 <body>
 
+    <div style="position: absolute; height: 20vw;width: 100%;z-index: 0;">
+        
+    </div>
+
 
     <div class="container">
     
@@ -60,9 +64,7 @@
     
 
     
-<pre><code class=language-bash>
-vi /etc/ssh/sshd_config
-</code></pre>
+<pre><code class=language-bash>vi /etc/ssh/sshd_config</code></pre>
     
 
     
@@ -76,9 +78,7 @@ vi /etc/ssh/sshd_config
     
 
     
-<pre><code class=language-bash>
-service sshd status
-</code></pre>
+<pre><code class=language-bash>service sshd status</code></pre>
     
 
     
@@ -154,9 +154,7 @@ service sshd status
     
 
     
-<pre><code class=language-bash>
-firewall-cmd --state
-</code></pre>
+<pre><code class=language-bash>firewall-cmd --state</code></pre>
     
 
     
@@ -178,9 +176,7 @@ firewall-cmd --state
     
 
     
-<pre><code class=language-bash>
-systemctl stop firewalld
-</code></pre>
+<pre><code class=language-bash>systemctl stop firewalld</code></pre>
     
 
     
@@ -194,10 +190,8 @@ systemctl stop firewalld
     
 
     
-<pre><code class=language-bash>
-systemctl disable firewalld
-systemctl mask firewalld
-</code></pre>
+<pre><code class=language-bash>systemctl disable firewalld
+systemctl mask firewalld</code></pre>
     
 
     
@@ -243,9 +237,7 @@ systemctl mask firewalld
     
 
     
-<pre><code class=language-bash>
-rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
-</code></pre>
+<pre><code class=language-bash>rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</code></pre>
     
 
     
@@ -267,9 +259,7 @@ rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
     
 
     
-<pre><code class=language-bash>
-yum install https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
-</code></pre>
+<pre><code class=language-bash>yum install https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</code></pre>
     
 
     
@@ -283,9 +273,7 @@ yum install https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
     
 
     
-<pre><code class=language-bash>
-yum --enablerepo=elrepo-kernel install kernel-ml
-</code></pre>
+<pre><code class=language-bash>yum --enablerepo=elrepo-kernel install kernel-ml</code></pre>
     
 
     
@@ -299,9 +287,7 @@ yum --enablerepo=elrepo-kernel install kernel-ml
     
 
     
-<pre><code class=language-bash>
-sudo awk -F\\&#39; &#39;$1==&#34;menuentry &#34; {print i++ &#34; : &#34; $2}&#39; /etc/grub2.cfg
-</code></pre>
+<pre><code class=language-bash>sudo awk -F\\&#39; &#39;$1==&#34;menuentry &#34; {print i++ &#34; : &#34; $2}&#39; /etc/grub2.cfg</code></pre>
     
 
     
@@ -315,14 +301,12 @@ sudo awk -F\\&#39; &#39;$1==&#34;menuentry &#34; {print i++ &#34; : &#34; $2}&#3
     
 
     
-<pre><code class=language-bash>
-[root@test2 ~]# awk -F\\&#39; &#39;$1==&#34;menuentry &#34; {print i++ &#34; : &#34; $2}&#39; /etc/grub2.cfg
+<pre><code class=language-bash>[root@test2 ~]# awk -F\\&#39; &#39;$1==&#34;menuentry &#34; {print i++ &#34; : &#34; $2}&#39; /etc/grub2.cfg
 0 : CentOS Linux (5.1.3-1.el7.elrepo.x86_64) 7 (Core)
 1 : CentOS Linux (3.10.0-957.12.2.el7.x86_64) 7 (Core)
 2 : CentOS Linux (3.10.0-957.10.1.el7.x86_64) 7 (Core)
 3 : CentOS Linux (3.10.0-693.el7.x86_64) 7 (Core)
-4 : CentOS Linux (0-rescue-8508293106977c25a934808909d9e8a1) 7 (Core)
-</code></pre>
+4 : CentOS Linux (0-rescue-8508293106977c25a934808909d9e8a1) 7 (Core)</code></pre>
     
 
     
@@ -336,9 +320,7 @@ sudo awk -F\\&#39; &#39;$1==&#34;menuentry &#34; {print i++ &#34; : &#34; $2}&#3
     
 
     
-<pre><code class=language-bash>
-grub2-set-default 0
-</code></pre>
+<pre><code class=language-bash>grub2-set-default 0</code></pre>
     
 
     
@@ -352,9 +334,7 @@ grub2-set-default 0
     
 
     
-<pre><code class=language-bash>
-grub2-mkconfig -o /boot/grub2/grub.cfg
-</code></pre>
+<pre><code class=language-bash>grub2-mkconfig -o /boot/grub2/grub.cfg</code></pre>
     
 
     
@@ -394,10 +374,8 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
     
 
     
-<pre><code class=language-bash>
-[root@test2 ~]# uname -r
-5.1.3-1.el7.elrepo.x86_64
-</code></pre>
+<pre><code class=language-bash>[root@test2 ~]# uname -r
+5.1.3-1.el7.elrepo.x86_64</code></pre>
     
 
     
@@ -447,10 +425,8 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
     
 
     
-<pre><code class=language-bash>
-modprobe tcp_bbr
-echo &#34;tcp_bbr&#34; | sudo tee --append /etc/modules-load.d/modules.conf
-</code></pre>
+<pre><code class=language-bash>modprobe tcp_bbr
+echo &#34;tcp_bbr&#34; | sudo tee --append /etc/modules-load.d/modules.conf</code></pre>
     
 
     
@@ -464,10 +440,8 @@ echo &#34;tcp_bbr&#34; | sudo tee --append /etc/modules-load.d/modules.conf
     
 
     
-<pre><code class=language-bash>
-echo &#34;net.core.default_qdisc=fq&#34; | sudo tee --append /etc/sysctl.conf
-echo &#34;net.ipv4.tcp_congestion_control=bbr&#34; | sudo tee --append /etc/sysctl.conf
-</code></pre>
+<pre><code class=language-bash>echo &#34;net.core.default_qdisc=fq&#34; | sudo tee --append /etc/sysctl.conf
+echo &#34;net.ipv4.tcp_congestion_control=bbr&#34; | sudo tee --append /etc/sysctl.conf</code></pre>
     
 
     
@@ -481,9 +455,7 @@ echo &#34;net.ipv4.tcp_congestion_control=bbr&#34; | sudo tee --append /etc/sysc
     
 
     
-<pre><code class=language-bash>
-sysctl -p
-</code></pre>
+<pre><code class=language-bash>sysctl -p</code></pre>
     
 
     
@@ -533,8 +505,7 @@ sysctl -p
     
 
     
-<pre><code class=language-bash>
-iptables -t nat -F  
+<pre><code class=language-bash>iptables -t nat -F  
 iptables -t nat -X  
 iptables -t nat -P PREROUTING ACCEPT  
 iptables -t nat -P POSTROUTING ACCEPT  
@@ -554,8 +525,7 @@ iptables -P OUTPUT ACCEPT
 iptables -t raw -F  
 iptables -t raw -X  
 iptables -t raw -P PREROUTING ACCEPT  
-iptables -t raw -P OUTPUT ACCEPT
-</code></pre>
+iptables -t raw -P OUTPUT ACCEPT</code></pre>
     
 
     
@@ -599,10 +569,8 @@ iptables -t raw -P OUTPUT ACCEPT
     
 
     
-<pre><code class=language-bash>
-[root@test2 ~]# service iptables save
-The service command supports only basic LSB actions (start, stop, restart, try-restart, reload, force-reload, status). For other actions, please try to use systemctl.
-</code></pre>
+<pre><code class=language-bash>[root@test2 ~]# service iptables save
+The service command supports only basic LSB actions (start, stop, restart, try-restart, reload, force-reload, status). For other actions, please try to use systemctl.</code></pre>
     
 
     
@@ -616,9 +584,7 @@ The service command supports only basic LSB actions (start, stop, restart, try-r
     
 
     
-<pre><code class=language-bash>
-yum install iptables-services
-</code></pre>
+<pre><code class=language-bash>yum install iptables-services</code></pre>
     
 
     
@@ -632,10 +598,8 @@ yum install iptables-services
     
 
     
-<pre><code class=language-bash>
-systemctl enable iptables
-systemctl start iptables
-</code></pre>
+<pre><code class=language-bash>systemctl enable iptables
+systemctl start iptables</code></pre>
     
 
     

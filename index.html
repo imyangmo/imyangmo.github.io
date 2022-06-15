@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -7,15 +8,13 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='./style/basic_styles.css'>
     <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">
+    
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src=https://www.googletagmanager.com/gtag/js?id=UA-92314993-3></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-92314993-3');
-    </script>
+        function gtag() { dataLayer.push(arguments); }
+        gtag(' js', new Date()); gtag('config', 'UA-92314993-3'); </script>
 
 </head>
 <body>
@@ -25,17 +24,22 @@
     <p><a href="./index.html">PRELUDE</a></p>
 </div>
     
-    <div>
+    <!-- <div>
         
+        
+            <li>
+        <span>2019-08-09</span>
+        <a href=5c6a8dbdf87a47d48b937501d638ee42/5c6a8dbdf87a47d48b937501d638ee42.html class="tocTitle" >FFmpeg使用显卡进行转码硬件加速的记录，以及和软压的比较</a>
+    </li>
+        
+            <li>
+        <span>2019-08-27</span>
+        <a href=69585a512e364f548915ee0280c09ce4/69585a512e364f548915ee0280c09ce4.html class="tocTitle" >如何使用开放图谱(open graph)在facebook / LinkedIn上分享网页时显示卡片</a>
+    </li>
         
             <li>
         <span>2019-07-30</span>
         <a href=2eb7fce1d2964b63b75ea228834860ea/2eb7fce1d2964b63b75ea228834860ea.html class="tocTitle" >如何一步步检测你的服务器是否被墙（防火墙机制猜测）</a>
-    </li>
-        
-            <li>
-        <span>2022-04-20</span>
-        <a href=51ca9a1688574addb89f5ce7d3ce2155/51ca9a1688574addb89f5ce7d3ce2155.html class="tocTitle" >Hexo, Notion &amp; Wordpress静态站对比</a>
     </li>
         
             <li>
@@ -53,6 +57,9 @@
         <a href=b37377ab6ecc4e83b3b5b2c7bd529e89/b37377ab6ecc4e83b3b5b2c7bd529e89.html class="tocTitle" >RFCHOST的GIA线路评测及搭建v2ray的曲折历程</a>
     </li>
         
+    </div> -->
+    <div id="toc">
+
     </div>
     <div class="footer">
     <p>Created by <a href="https://github.com/imyangmo/notionpaper">NotionPaper</a>, a tool that helps you use Notion like a CMS. </p>
@@ -60,5 +67,80 @@
 </div>
 
 </div>
-</body>
+<script>
+    const index_object = {"contents": [{"addr": "5c6a8dbdf87a47d48b937501d638ee42", "date": "2019-08-09", "time": "", "title": "FFmpeg\u4f7f\u7528\u663e\u5361\u8fdb\u884c\u8f6c\u7801\u786c\u4ef6\u52a0\u901f\u7684\u8bb0\u5f55\uff0c\u4ee5\u53ca\u548c\u8f6f\u538b\u7684\u6bd4\u8f83"}, {"addr": "69585a512e364f548915ee0280c09ce4", "date": "2019-08-27", "time": "", "title": "\u5982\u4f55\u4f7f\u7528\u5f00\u653e\u56fe\u8c31(open graph)\u5728facebook / LinkedIn\u4e0a\u5206\u4eab\u7f51\u9875\u65f6\u663e\u793a\u5361\u7247"}, {"addr": "2eb7fce1d2964b63b75ea228834860ea", "date": "2019-07-30", "time": "", "title": "\u5982\u4f55\u4e00\u6b65\u6b65\u68c0\u6d4b\u4f60\u7684\u670d\u52a1\u5668\u662f\u5426\u88ab\u5899\uff08\u9632\u706b\u5899\u673a\u5236\u731c\u6d4b\uff09"}, {"addr": "6b5b61977b694756bfe5d3aecff5b8a7", "date": "2019-04-10", "time": "00:00:00", "title": "\u5730\u94c1\u7535\u68af\u201c\u5de6\u884c\u53f3\u7acb\u201d\u7684\u4e00\u4e9b\u601d\u8003"}, {"addr": "8c50ac58646642fc90a5952cf9a90477", "date": "2019-05-19", "time": "00:00:00", "title": "\u65b0vps\u7684\u4e00\u822c\u521d\u59cb\u5316\u6b65\u9aa4"}, {"addr": "b37377ab6ecc4e83b3b5b2c7bd529e89", "date": "2018-12-10", "time": "00:00:00", "title": "RFCHOST\u7684GIA\u7ebf\u8def\u8bc4\u6d4b\u53ca\u642d\u5efav2ray\u7684\u66f2\u6298\u5386\u7a0b"}], "ga": "UA-92314993-3", "icon": null, "site_name": "PRELUDE"}
+
+    function bubbleSort(arr) {
+        var len = arr.length;
+        for (var i = 0; i < len - 1; i++) {
+            for (var j = 0; j < len - 1 - i; j++) {
+                if (arr[j].date < arr[j + 1].date) {
+                    var temp = arr[j + 1]
+                    arr[j + 1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return arr;
+    }
+
+    function yearOf(date) {
+        return date.split('-')[0]
+    }
+
+
+    let ordered_list = bubbleSort(index_object.contents)
+    let new_list = []
+    let year_list = []
+
+    ordered_list.forEach((obj, index) => {
+        if (!year_list.includes(yearOf(obj.date))) {
+            year_list.push(yearOf(obj.date))
+        }
+    })
+
+    year_list.forEach((item) => {
+        new_list.push({ 'year': item, 'list': [] })
+    })
+
+    new_list.forEach((item, index) => {
+        ordered_list.forEach((each, index) => {
+        })
+    })
+
+    ordered_list.forEach((each, index) => {
+        new_list.forEach((item, index) => {
+            if (item.year == yearOf(each.date)) {
+                item.list.push(each)
+            }
+        })
+    })
+
+    new_list.forEach((each) => {
+        heading = document.createElement("h2");
+        heading_text = document.createTextNode(each.year);
+        heading.appendChild(heading_text);
+
+        ul = document.createElement("ul")
+
+        each.list.forEach((item) => {
+            li = document.createElement("li")
+            a = document.createElement('a')
+            a.href = './' + item.addr + '/' + item.addr + '.html'
+            a_text = document.createTextNode(item.title)
+            a.appendChild(a_text)
+
+            li_text = document.createTextNode(item.date + ' ')
+            li.appendChild(li_text)
+            li.appendChild(a)
+            ul.appendChild(li)
+        })
+
+        document.getElementById("toc").appendChild(heading)
+        document.getElementById("toc").appendChild(ul)
+    })
+
+</script>
+    </body>
+
 </html>

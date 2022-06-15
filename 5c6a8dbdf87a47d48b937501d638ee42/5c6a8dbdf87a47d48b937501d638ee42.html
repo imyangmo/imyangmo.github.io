@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>FFmpeg使用显卡进行转码硬件加速的记录，以及和软压的比较 - PRELUDE</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../style/basic_styles.css'>
+    <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src=https://www.googletagmanager.com/gtag/js?id=UA-92314993-3></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-92314993-3');
+    </script>
+</head>
+<body>
+
+    <div style="position: absolute; height: 20vw;width: 100%;z-index: 0;">
+        
+    </div>
+
+
+    <div class="container">
+    
+        <div class="header-article">
+    <p><a href="../index.html">PRELUDE</a></p>
+</div>
+    
+    <div>
+        <h1 class="page-title">FFmpeg使用显卡进行转码硬件加速的记录，以及和软压的比较</h1>
+        
+
+
+    
+
+    
+<h2>
+        
+            
+<span class=" bold default">1. 环境</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" default">操作系统：Windows 10</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">FFmpeg版本：20171204</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">显卡：GTX 965M</span>
+
+        
+    </p>
+    
+
+    
+<h2>
+        
+            
+<span class=" bold default">2. 过程</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" default">最近是有比较多的压制需求，使用</span>
+
+        
+            
+<span class=" code default">libx265</span>
+
+        
+            
+<span class=" default">软压的速度实在是慢的受不了，所以还是希望能用显卡硬压起码速度快一点。之前有人跟我提过硬压质量似乎不及软压，但是决定还是试一试。在ffmpeg官网找到硬压的</span>
+
+        
+            
+<a href=https://trac.ffmpeg.org/wiki/HWAccelIntro class=" default">相关信息</a>
+
+        
+            
+<span class=" default">。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">由于我用的是windows，所以驱动基本没有特别配置。而且windows版的ffmpeg也是参数配置好的，所以这方面没有考虑太多。linux平台可能需要配置一下参数啥的。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">压制分为两步，先是对视频解码再编码。ffmpeg在两步都提供了硬件加速方案。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">在官网给出的例子是基于h264的，h265的硬件参数啥的可以用：</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" code default">ffmpeg -codecs | sls cuvid</span>
+
+        
+            
+<span class=" default"> (备注：sls是powershell的命令，类似于linux下的grep命令)</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">可以看到这条：</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-bash>DEV.L. hevc H.265 / HEVC (High Efficiency Video Coding) (decoders: hevc hevc_qsv hevc_cuvid ) (encoders: libx265 nvenc_hevc hevc_nvenc hevc_qsv )</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" default">解码器提供了</span>
+
+        
+    </p>
+    
+
+    
+<ul>
+        
+            <li>
+        
+            
+<span class=" code default">hevc</span>
+
+        
+    </li>
+        
+            <li>
+        
+            
+<span class=" code default">hevc_qsv</span>
+
+        
+    </li>
+        
+            <li>
+        
+            
+<span class=" code default">hevc_cuvid</span>
+
+        
+    </li>
+        
+    </ul>
+    
+
+    
+<p>
+        
+            
+<span class=" default">编码器提供了</span>
+
+        
+    </p>
+    
+
+    
+<ul>
+        
+            <li>
+        
+            
+<span class=" code default">libx265</span>
+
+        
+    </li>
+        
+            <li>
+        
+            
+<span class=" code default">nvenc_hevc</span>
+
+        
+    </li>
+        
+            <li>
+        
+            
+<span class=" code default">hevc_nvenc</span>
+
+        
+    </li>
+        
+            <li>
+        
+            
+<span class=" code default">hevc_qsv</span>
+
+        
+    </li>
+        
+    </ul>
+    
+
+    
+<p>
+        
+            
+<span class=" default">但是这个</span>
+
+        
+            
+<span class=" code default">nvenc_hevc</span>
+
+        
+            
+<span class=" default">其实已经作废了，你用它的话他会提示你自动给你转到</span>
+
+        
+            
+<span class=" code default">hevc_nvenc</span>
+
+        
+            
+<span class=" default">。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">解码器的这三个用法我是不太懂有啥区别，也没去做太多研究，因为在实践中使用硬解的话是</span>
+
+        
+            
+<span class=" bold default">**没办法**</span>
+
+        
+            
+<span class=" default">同时硬压字幕的，会报错，况且硬解对于整体压制速度并没有太大提升，所以就抛弃硬解了。</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">编码器的部分，</span>
+
+        
+            
+<span class=" code default">libx265</span>
+
+        
+            
+<span class=" default">就是软压，</span>
+
+        
+            
+<span class=" code default">hevc_qsv</span>
+
+        
+            
+<span class=" default">似乎是英特尔的集显硬压，具体看</span>
+
+        
+            
+<a href=https://www.intel.com/content/dam/www/public/us/en/documents/white-papers/cloud-computing-quicksync-video-ffmpeg-white-paper.pdf class=" default">这里</a>
+
+        
+            
+<span class=" default">。那么留给n卡的只有</span>
+
+        
+            
+<span class=" code default">hevc_nvenc</span>
+
+        
+            
+<span class=" default">可以用了。
+使用这条命令来查看该方法的参数：</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-bash>ffmpeg -h encoder=hevc_nvenc</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" default">可以得到可用参数，我们这里探究的是-cq参数，给出的描述是：</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-bash>-cq &lt;float&gt; E..V.... Set target quality level (0 to 51, 0 means automatic) for constant quality mode in VBR rate control (from 0 to 51) (default 0)</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" default">我感兴趣的原因是它和libx265，也就是软压的</span>
+
+        
+            
+<span class=" code default">crf</span>
+
+        
+            
+<span class=" default">参数很类似。所以接下来都是在其他参数不考虑的情况下对不同cq的对比。</span>
+
+        
+    </p>
+    
+
+    
+<h2>
+        
+            
+<span class=" bold default">3. 不同cq值的对比</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" default">我用的是谍影重重5的预告片压制测试，原视频数据如下：</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-bash>Format                      : MPEG-4
+Format profile              : QuickTime
+Codec ID                    : qt   2005.03 (qt  )
+File size                   : 35.6 MiB
+Duration                    : 30 s 30 ms
+Overall bit rate            : 9 938 kb/s
+Encoded date                : UTC 2016-02-08 06:40:30
+Tagged date                 : UTC 2016-02-08 06:40:30
+Writing library             : Apple QuickTime 7.7.3</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" default">在使用命令</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-bash>ffmpeg -i original.mov -c:v hevc_nvenc -cq X cqx.mp4</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" default">进行测试后。结果如下：</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">对比视频在</span>
+
+        
+            
+<a href=https://www.bilibili.com/video/av17105682 class=" default">这里</a>
+
+        
+            
+<span class=" default">。</span>
+
+        
+    </p>
+    
+
+    
+<table>
+        
+            <tr>
+        
+            <td>
+        
+            
+<span class=" default">压缩方式</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">File size </span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">Overall bit rate</span>
+
+        
+        
+    </td>
+        
+    </tr>
+        
+            <tr>
+        
+            <td>
+        
+            
+<span class=" bold default">Libx265 （软压）</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">5.53 MiB</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">1 544 kb/s</span>
+
+        
+        
+    </td>
+        
+    </tr>
+        
+            <tr>
+        
+            <td>
+        
+            
+<span class=" bold default">-cq 0(默认)</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">8.21 MiB</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">2 290 kb/s</span>
+
+        
+        
+    </td>
+        
+    </tr>
+        
+            <tr>
+        
+            <td>
+        
+            
+<span class=" bold default">-cq 1</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">8.21 MiB</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">2 290 kb/s</span>
+
+        
+        
+    </td>
+        
+    </tr>
+        
+            <tr>
+        
+            <td>
+        
+            
+<span class=" bold default">-cq 10</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">8.21 MiB</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">2 290 kb/s</span>
+
+        
+        
+    </td>
+        
+    </tr>
+        
+            <tr>
+        
+            <td>
+        
+            
+<span class=" bold default">-cq 20</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">8.21 MiB</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">2 290 kb/s</span>
+
+        
+        
+    </td>
+        
+    </tr>
+        
+            <tr>
+        
+            <td>
+        
+            
+<span class=" bold default">-cq 30</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">8.20 MiB</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">2 286 kb/s</span>
+
+        
+        
+    </td>
+        
+    </tr>
+        
+            <tr>
+        
+            <td>
+        
+            
+<span class=" bold default">-cq 35</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">3.06 MiB</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">855 kb/s</span>
+
+        
+        
+    </td>
+        
+    </tr>
+        
+            <tr>
+        
+            <td>
+        
+            
+<span class=" bold default">-cq 38</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">3.06 MiB</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">855 kb/s</span>
+
+        
+        
+    </td>
+        
+    </tr>
+        
+            <tr>
+        
+            <td>
+        
+            
+<span class=" bold default">-cq 41</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">3.06 MiB</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">855 kb/s</span>
+
+        
+        
+    </td>
+        
+    </tr>
+        
+            <tr>
+        
+            <td>
+        
+            
+<span class=" bold default">-cq 51</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">1.41 MiB</span>
+
+        
+        
+    </td>
+        
+            <td>
+        
+            
+<span class=" default">392 kb/s</span>
+
+        
+        
+    </td>
+        
+    </tr>
+        
+    </table>
+    
+
+    
+<h2>
+        
+            
+<span class=" bold default">4. 结论</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" default">可以看到cq在1到30的变化并不大，在41以上画面基本上是没办法看了。在和libx265的默认软压对比后，-cq值落在35到40之间是比较好的选择。
+在后续的实际应用中，我在压制画面动作较少的视频，如交响乐视频的情况下，-cq 37是一个对于我来说比较好的选择。</span>
+
+        
+    </p>
+    
+
+    </div>
+    <div class="footer">
+    <p>Created by <a href="https://github.com/imyangmo/notionpaper">NotionPaper</a>, a tool that helps you use Notion like a CMS. </p>
+    <p>This site uses <a href="https://simplecss.org/">Simple.css</a></p>
+</div>
+
+</div>
+</body>
+</html>
