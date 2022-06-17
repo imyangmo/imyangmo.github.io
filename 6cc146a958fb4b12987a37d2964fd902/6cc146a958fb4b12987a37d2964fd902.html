@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>微信浏览器h5页面音乐自动播放（2020.02可用） - PRELUDE</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../style/basic_styles.css'>
+    <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src=https://www.googletagmanager.com/gtag/js?id=UA-92314993-3></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-92314993-3');
+    </script>
+</head>
+<body>
+
+    <div style="position: absolute; height: 20vw;width: 100%;z-index: 0;">
+        
+    </div>
+
+
+    <div class="container">
+    
+        <div class="header-article">
+    <p><a href="../index.html">PRELUDE</a></p>
+</div>
+    
+    <div>
+        <h1 class="page-title">微信浏览器h5页面音乐自动播放（2020.02可用）</h1>
+        
+
+
+    
+
+    
+<p>
+        
+            
+<span class=" default">在做一些基于微信浏览器的h5页面的过程中，客户会希望进入即播放音乐，在搜集资料后找到了一种实际可用的方法。
+需要看Demo的可以直接看最后一个标题。</span>
+
+        
+    </p>
+    
+
+    
+<h2>
+        
+            
+<span class=" default">1</span>
+
+        
+            
+<span class=" bold default">. 传统方法的不可行性</span>
+
+        
+    </h2>
+    
+
+    
+<ul>
+        
+            <li>
+        
+            
+<span class=" bold default">a. </span>
+
+        
+            
+<span class=" bold code default">autoplay</span>
+
+        
+            
+<span class=" bold default">属性</span>
+
+        
+    </li>
+        
+    </ul>
+    
+
+    
+<p>
+        
+            
+<span class=" default">HTML 5的 &lt;audio&gt; tag中实际上是有一个叫做 autoplay 的属性的，但是在大多数的现代浏览器中这个属性形同虚设，由于安全性的原因现代浏览器并不允许音频的自动播放，毕竟广告网页中会滥用这个属性导致体验非常不好。</span>
+
+        
+    </p>
+    
+
+    
+<ul>
+        
+            <li>
+        
+            
+<span class=" bold default">b. </span>
+
+        
+            
+<span class=" bold code default">.play()</span>
+
+        
+            
+<span class=" bold default"> 方法</span>
+
+        
+    </li>
+        
+    </ul>
+    
+
+    
+<p>
+        
+            
+<span class=" default">同样的，使用 </span>
+
+        
+            
+<span class=" code default">&lt;audio&gt;</span>
+
+        
+            
+<span class=" default"> tag的</span>
+
+        
+            
+<span class=" code default">.play()</span>
+
+        
+            
+<span class=" default">方法也是一样无效，原因同上。</span>
+
+        
+    </p>
+    
+
+    
+<h2>
+        
+            
+<span class=" bold default">2. 方法</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" bold default">先</span>
+
+        
+            
+<span class=" bold code default">append</span>
+
+        
+            
+<span class=" bold default"> 一个 </span>
+
+        
+            
+<span class=" bold code default">&lt;audio&gt;</span>
+
+        
+            
+<span class=" bold default"> tag：</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">在document的DOM结构加载完成之后（当然你也可以用jQ的document.ready），append一个 </span>
+
+        
+            
+<span class=" code default">&lt;audio&gt;</span>
+
+        
+            
+<span class=" default"> tag上去，并指定源：</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-javascript>//我这里用的是DOMContentLoaded的事件，有浏览器兼容性要求，但是此处不考虑
+        document.addEventListener(&#34;DOMContentLoaded&#34;, function(e){ 
+//创建一个&lt;audio&gt; tag，并指定属性
+            var audioNode = document.createElement(&#34;audio&#34;);
+            audioNode.setAttribute(&#34;src&#34;,&#34;./auto.mp3&#34;);
+            audioNode.setAttribute(&#34;id&#34;,&#34;player&#34;);
+            audioNode.controls = true;
+            audioNode.setAttribute(&#34;preload&#34;,&#34;auto&#34;);
+//append到body上
+            document.body.appendChild(audioNode);
+        })</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" bold default">再利用微信sdk触发播放：</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">在微信浏览器中打开的网页可以加载微信的js sdk，就是一般用来做微信登陆、分享等等功能的，在sdk ready时的callback可以用来触发</span>
+
+        
+            
+<span class=" code default">&lt;audio&gt;</span>
+
+        
+            
+<span class=" default"> tag的 </span>
+
+        
+            
+<span class=" code default">.play()</span>
+
+        
+            
+<span class=" default">方法，从而自动播放音乐。</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-javascript>//先引用下微信js sdk
+&lt;script src=&#34;http://res.wx.qq.com/open/js/jweixin-1.0.0.js&#34;&gt;&lt;/script&gt;
+&lt;script&gt;
+function autoPlayAudio() {
+    wx.config({
+// 配置信息, 即使不正确也能使用 wx.ready
+        debug: false,
+        appId: &#39;&#39;,
+        timestamp: 1,
+        nonceStr: &#39;&#39;,
+        signature: &#39;&#39;,
+        jsApiList: []
+    });
+    wx.ready(function () {
+        var globalAudio = document.getElementById(&#34;player&#34;);
+        globalAudio.play();
+    });
+};
+&lt;/script&gt;</code></pre>
+    
+
+    
+<h2>
+        
+            
+<span class=" bold default">3. 音乐加载状态</span>
+
+        
+    </h2>
+    
+
+    
+<pre><code class=language-javascript>var globalAudio = document.getElementById(&#34;player&#34;);
+var statusP = document.getElementById(&#34;status&#34;);
+globalAudio.onloadstart = function(){
+    console.log(&#34;开始加载&#34;)
+    statusP.innerHTML = &#34;正在加载&#34;;
+    globalAudio.oncanplay = function(){
+        statusP.innerHTML = &#34;加载完成&#34;;
+        autoPlayAudio();
+    }
+}</code></pre>
+    
+
+    
+<p>
+        
+    </p>
+    
+
+    
+<p>
+        
+    </p>
+    
+
+    </div>
+    <div class="footer">
+    <p>Created by <a href="https://github.com/imyangmo/notionpaper">NotionPaper</a>, a tool that helps you use Notion like a CMS. </p>
+    <p>This site uses <a href="https://simplecss.org/">Simple.css</a></p>
+</div>
+
+</div>
+</body>
+</html>

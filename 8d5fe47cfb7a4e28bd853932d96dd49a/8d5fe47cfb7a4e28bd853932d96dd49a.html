@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>hive中的数组、键值型和字符串的长度的坑 - PRELUDE</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../style/basic_styles.css'>
+    <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src=https://www.googletagmanager.com/gtag/js?id=UA-92314993-3></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-92314993-3');
+    </script>
+</head>
+<body>
+
+    <div style="position: absolute; height: 20vw;width: 100%;z-index: 0;">
+        
+    </div>
+
+
+    <div class="container">
+    
+        <div class="header-article">
+    <p><a href="../index.html">PRELUDE</a></p>
+</div>
+    
+    <div>
+        <h1 class="page-title">hive中的数组、键值型和字符串的长度的坑</h1>
+        
+
+
+    
+
+    
+<p>
+        
+            
+<span class=" default">最近业务有个需求，需要计算一张大宽表中每一行的每一列中有多少个值，其实就是计算值的长度。因为有的列是字符串型，有的是数组型，有的是键值型，在值为空时的表现各不相同。</span>
+
+        
+    </p>
+    
+
+    
+<h2>
+        
+            
+<span class=" default">1. 准备数据</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" default">假设我们有下面的一张表，其中：</span>
+
+        
+    </p>
+    
+
+    
+<ul>
+        
+            <li>
+        
+            
+<span class=" default">第一行为每一列有多个值的情况</span>
+
+        
+    </li>
+        
+            <li>
+        
+            
+<span class=" default">第二行为每一列有单个值的情况</span>
+
+        
+    </li>
+        
+            <li>
+        
+            
+<span class=" default">第三行为每一列为</span>
+
+        
+            
+<span class=" bold default">空值</span>
+
+        
+            
+<span class=" default">的情况（</span>
+
+        
+            
+<span class=" bold default">不是</span>
+
+        
+            
+<span class=" default">null）</span>
+
+        
+    </li>
+        
+            <li>
+        
+            
+<span class=" default">第四行为每一列为</span>
+
+        
+            
+<span class=" bold default">空</span>
+
+        
+            
+<span class=" default">的情况（为null）</span>
+
+        
+    </li>
+        
+    </ul>
+    
+
+    
+<pre><code class=language-sql>select *
+from tmp.ym_test</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" bold default">结果</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-sql>| array                     | key_value                         | string          |
+|---------------------------|-----------------------------------|-----------------|
+| [&#34;item1&#34;,&#34;item2&#34;,&#34;item3&#34;] | {&#34;key1&#34;:&#34;value1&#34;,&#34;key2&#34;:&#34;value2&#34;} | a sample string |
+| [&#34;item1&#34;]                 | {&#34;key1&#34;:&#34;value1&#34;}                 | string         |
+| []                      | {}                                |             |
+| null                      | null                              | null            |</code></pre>
+    
+
+    
+<h2>
+        
+            
+<span class=" bold default">2. 计算长度</span>
+
+        
+    </h2>
+    
+
+    
+<pre><code class=language-sql>select size(array), size(key_value), length(string)
+from tmp.ym_test</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" bold default">结果</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-sql>| array | key_value | string |
+|-------|-----------|--------|
+| 3     |  2        | 15     |
+| 1     | 1         |  6     |
+|  0    | 0         |  0     |
+|  -1   |  -1       | null   |</code></pre>
+    
+
+    
+<h2>
+        
+            
+<span class=" bold default">3. 结论</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" default">根据以上结果，结论其实很明显了：</span>
+
+        
+    </p>
+    
+
+    
+<ul>
+        
+            <li>
+        
+            
+<span class=" bold default">第一行为每一列有多个值的情况：</span>
+
+        
+    </li>
+        
+            <li>
+        
+            
+<span class=" bold default">第二行为每一列有单个值的情况：</span>
+
+        
+    </li>
+        
+            <li>
+        
+            
+<span class=" bold default">第三行为每一列为</span>
+
+        
+            
+<span class=" bold italic default">空值</span>
+
+        
+            
+<span class=" bold default">的情况（</span>
+
+        
+            
+<span class=" bold italic default">不是</span>
+
+        
+            
+<span class=" bold default">null）：</span>
+
+        
+    </li>
+        
+            <li>
+        
+            
+<span class=" bold default">第四行为每一列为</span>
+
+        
+            
+<span class=" bold italic default">空</span>
+
+        
+            
+<span class=" bold default">的情况（为null）：</span>
+
+        
+    </li>
+        
+    </ul>
+    
+
+    
+<h2>
+        
+            
+<span class=" bold default">4. 坑</span>
+
+        
+    </h2>
+    
+
+    
+<p>
+        
+            
+<span class=" default">为什么说是坑呢，因为结论的第三条和第四条，在计算中array和map是null和空值其实都是一样的视为0，如果我要求每条数据的长度和，那如果遇到为null的array和map就会变少，因为-1了；</span>
+
+        
+    </p>
+    
+
+    
+<p>
+        
+            
+<span class=" default">同理，如果是用length计算string长度其实也没有特别大的意义，因为string不为空那就肯定就是有值的，即为1，所以为了达到业务需求，还需要改一下query：</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-sql>select 
+if(size(array) == -1, 0, size(array)), 
+if(size(key_value) == -1, 0, size(key_value)), 
+if(length(string) is null, 0, 1)
+from tmp.ym_test</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" bold default">结果</span>
+
+        
+    </p>
+    
+
+    
+<pre><code class=language-sql>| array | key_value | string |
+|-------|-----------|--------|
+| 3     |  2        | 1      |
+| 1     | 1         | 1      |
+|  0    | 0         |  0     |
+| 0     | 0         |  0     |</code></pre>
+    
+
+    
+<p>
+        
+            
+<span class=" default">这样再去求和就能得出正确的元素长度了。</span>
+
+        
+    </p>
+    
+
+    </div>
+    <div class="footer">
+    <p>Created by <a href="https://github.com/imyangmo/notionpaper">NotionPaper</a>, a tool that helps you use Notion like a CMS. </p>
+    <p>This site uses <a href="https://simplecss.org/">Simple.css</a></p>
+</div>
+
+</div>
+</body>
+</html>
