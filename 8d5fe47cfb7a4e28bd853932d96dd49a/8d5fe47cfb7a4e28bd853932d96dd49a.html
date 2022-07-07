@@ -18,39 +18,79 @@
 
         gtag('config', 'UA-92314993-3');
     </script>
+    <script>
+        const page_object = {"contents": [{"children": null, "contents": [{"id": "ff1e1df1-5227-4cb9-9a0f-431c900e6bed", "level": 1, "text": "1. \u51c6\u5907\u6570\u636e"}, {"id": "c0ad66e5-93a3-44c7-b462-dde683d4e22a", "level": 1, "text": "2. \u8ba1\u7b97\u957f\u5ea6"}, {"id": "ae809d71-e881-4f2f-85d8-298c89c2626a", "level": 1, "text": "3. \u7ed3\u8bba"}, {"id": "3cd6da06-c49c-4c48-b0ee-00452d567790", "level": 1, "text": "4. \u5751"}], "type": "table_of_contents"}, {"children": null, "text": [{"annotations": "", "color": "default", "content": "\u6700\u8fd1\u4e1a\u52a1\u6709\u4e2a\u9700\u6c42\uff0c\u9700\u8981\u8ba1\u7b97\u4e00\u5f20\u5927\u5bbd\u8868\u4e2d\u6bcf\u4e00\u884c\u7684\u6bcf\u4e00\u5217\u4e2d\u6709\u591a\u5c11\u4e2a\u503c\uff0c\u5176\u5b9e\u5c31\u662f\u8ba1\u7b97\u503c\u7684\u957f\u5ea6\u3002\u56e0\u4e3a\u6709\u7684\u5217\u662f\u5b57\u7b26\u4e32\u578b\uff0c\u6709\u7684\u662f\u6570\u7ec4\u578b\uff0c\u6709\u7684\u662f\u952e\u503c\u578b\uff0c\u5728\u503c\u4e3a\u7a7a\u65f6\u7684\u8868\u73b0\u5404\u4e0d\u76f8\u540c\u3002", "link": null, "type": "text"}], "type": "paragraph"}, {"children": null, "id": "ff1e1df1-5227-4cb9-9a0f-431c900e6bed", "text": [{"annotations": "", "color": "default", "content": "1. \u51c6\u5907\u6570\u636e", "link": null, "type": "text"}], "type": "heading_1"}, {"children": null, "text": [{"annotations": "", "color": "default", "content": "\u5047\u8bbe\u6211\u4eec\u6709\u4e0b\u9762\u7684\u4e00\u5f20\u8868\uff0c\u5176\u4e2d\uff1a", "link": null, "type": "text"}], "type": "paragraph"}, {"items": [{"children": null, "listItems": [[{"annotations": "", "color": "default", "content": "\u7b2c\u4e00\u884c\u4e3a\u6bcf\u4e00\u5217\u6709\u591a\u4e2a\u503c\u7684\u60c5\u51b5", "link": null, "type": "text"}]], "type": "bulleted_list_item"}, {"children": null, "listItems": [[{"annotations": "", "color": "default", "content": "\u7b2c\u4e8c\u884c\u4e3a\u6bcf\u4e00\u5217\u6709\u5355\u4e2a\u503c\u7684\u60c5\u51b5", "link": null, "type": "text"}]], "type": "bulleted_list_item"}, {"children": null, "listItems": [[{"annotations": "", "color": "default", "content": "\u7b2c\u4e09\u884c\u4e3a\u6bcf\u4e00\u5217\u4e3a", "link": null, "type": "text"}, {"annotations": " bold", "color": "default", "content": "\u7a7a\u503c", "link": null, "type": "text"}, {"annotations": "", "color": "default", "content": "\u7684\u60c5\u51b5\uff08", "link": null, "type": "text"}, {"annotations": " bold", "color": "default", "content": "\u4e0d\u662f", "link": null, "type": "text"}, {"annotations": "", "color": "default", "content": "null\uff09", "link": null, "type": "text"}]], "type": "bulleted_list_item"}, {"children": null, "listItems": [[{"annotations": "", "color": "default", "content": "\u7b2c\u56db\u884c\u4e3a\u6bcf\u4e00\u5217\u4e3a", "link": null, "type": "text"}, {"annotations": " bold", "color": "default", "content": "\u7a7a", "link": null, "type": "text"}, {"annotations": "", "color": "default", "content": "\u7684\u60c5\u51b5\uff08\u4e3anull\uff09", "link": null, "type": "text"}]], "type": "bulleted_list_item"}], "origin_type": "bulleted_list_item", "type": "bulleted_list_item_group"}, {"children": null, "contents": "select *\nfrom tmp.ym_test", "language": "language-sql", "type": "code"}, {"children": null, "text": [{"annotations": " bold", "color": "default", "content": "\u7ed3\u679c", "link": null, "type": "text"}], "type": "paragraph"}, {"children": null, "contents": "| array                     | key_value                         | string          |\n|---------------------------|-----------------------------------|-----------------|\n| [\"item1\",\"item2\",\"item3\"] | {\"key1\":\"value1\",\"key2\":\"value2\"} | a sample string |\n| [\"item1\"]                 | {\"key1\":\"value1\"}                 | string         |\n| []                      | {}                                |             |\n| null                      | null                              | null            |", "language": "language-sql", "type": "code"}, {"children": null, "id": "c0ad66e5-93a3-44c7-b462-dde683d4e22a", "text": [{"annotations": " bold", "color": "default", "content": "2. \u8ba1\u7b97\u957f\u5ea6", "link": null, "type": "text"}], "type": "heading_1"}, {"children": null, "contents": "select size(array), size(key_value), length(string)\nfrom tmp.ym_test", "language": "language-sql", "type": "code"}, {"children": null, "text": [{"annotations": " bold", "color": "default", "content": "\u7ed3\u679c", "link": null, "type": "text"}], "type": "paragraph"}, {"children": null, "contents": "| array | key_value | string |\n|-------|-----------|--------|\n| 3     |  2        | 15     |\n| 1     | 1         |  6     |\n|  0    | 0         |  0     |\n|  -1   |  -1       | null   |", "language": "language-sql", "type": "code"}, {"children": null, "id": "ae809d71-e881-4f2f-85d8-298c89c2626a", "text": [{"annotations": " bold", "color": "default", "content": "3. \u7ed3\u8bba", "link": null, "type": "text"}], "type": "heading_1"}, {"children": null, "text": [{"annotations": "", "color": "default", "content": "\u6839\u636e\u4ee5\u4e0a\u7ed3\u679c\uff0c\u7ed3\u8bba\u5176\u5b9e\u5f88\u660e\u663e\u4e86\uff1a", "link": null, "type": "text"}], "type": "paragraph"}, {"items": [{"children": [{"items": [{"children": null, "listItems": [[{"annotations": "", "color": "default", "content": "array\u6216map\u7684\u957f\u5ea6\uff0c\u5373\u5143\u7d20\u4e2a\u6570\uff1b", "link": null, "type": "text"}]], "type": "bulleted_list_item"}, {"children": null, "listItems": [[{"annotations": "", "color": "default", "content": "string\u7684\u5b57\u6bcd\u4e2a\u6570\uff0c\u7a7a\u683c\u4e5f\u7b97\u3002", "link": null, "type": "text"}]], "type": "bulleted_list_item"}], "origin_type": "bulleted_list_item", "type": "bulleted_list_item_group"}], "listItems": [[{"annotations": " bold", "color": "default", "content": "\u7b2c\u4e00\u884c\u4e3a\u6bcf\u4e00\u5217\u6709\u591a\u4e2a\u503c\u7684\u60c5\u51b5\uff1a", "link": null, "type": "text"}]], "type": "bulleted_list_item"}, {"children": [{"items": [{"children": null, "listItems": [[{"annotations": "", "color": "default", "content": "array\u6216map\u7684\u957f\u5ea6\uff0c\u5373\u5143\u7d20\u4e2a\u6570\uff1b", "link": null, "type": "text"}]], "type": "bulleted_list_item"}, {"children": null, "listItems": [[{"annotations": "", "color": "default", "content": "string\u7684\u5b57\u6bcd\u4e2a\u6570\uff0c\u7a7a\u683c\u4e5f\u7b97\u3002", "link": null, "type": "text"}]], "type": "bulleted_list_item"}], "origin_type": "bulleted_list_item", "type": "bulleted_list_item_group"}], "listItems": [[{"annotations": " bold", "color": "default", "content": "\u7b2c\u4e8c\u884c\u4e3a\u6bcf\u4e00\u5217\u6709\u5355\u4e2a\u503c\u7684\u60c5\u51b5\uff1a", "link": null, "type": "text"}]], "type": "bulleted_list_item"}, {"children": [{"items": [{"children": null, "listItems": [[{"annotations": "", "color": "default", "content": "\u7686\u4e3a0\uff1b", "link": null, "type": "text"}]], "type": "bulleted_list_item"}], "origin_type": "bulleted_list_item", "type": "bulleted_list_item_group"}], "listItems": [[{"annotations": " bold", "color": "default", "content": "\u7b2c\u4e09\u884c\u4e3a\u6bcf\u4e00\u5217\u4e3a", "link": null, "type": "text"}, {"annotations": " bold italic", "color": "default", "content": "\u7a7a\u503c", "link": null, "type": "text"}, {"annotations": " bold", "color": "default", "content": "\u7684\u60c5\u51b5\uff08", "link": null, "type": "text"}, {"annotations": " bold italic", "color": "default", "content": "\u4e0d\u662f", "link": null, "type": "text"}, {"annotations": " bold", "color": "default", "content": "null\uff09\uff1a", "link": null, "type": "text"}]], "type": "bulleted_list_item"}, {"children": [{"items": [{"children": null, "listItems": [[{"annotations": "", "color": "default", "content": "array\u6216map\u7684\u957f\u5ea6\u4e3a-1\uff1b", "link": null, "type": "text"}]], "type": "bulleted_list_item"}, {"children": null, "listItems": [[{"annotations": "", "color": "default", "content": "string\u5219\u4ecd\u7136\u662fnull\u3002", "link": null, "type": "text"}]], "type": "bulleted_list_item"}], "origin_type": "bulleted_list_item", "type": "bulleted_list_item_group"}], "listItems": [[{"annotations": " bold", "color": "default", "content": "\u7b2c\u56db\u884c\u4e3a\u6bcf\u4e00\u5217\u4e3a", "link": null, "type": "text"}, {"annotations": " bold italic", "color": "default", "content": "\u7a7a", "link": null, "type": "text"}, {"annotations": " bold", "color": "default", "content": "\u7684\u60c5\u51b5\uff08\u4e3anull\uff09\uff1a", "link": null, "type": "text"}]], "type": "bulleted_list_item"}], "origin_type": "bulleted_list_item", "type": "bulleted_list_item_group"}, {"children": null, "id": "3cd6da06-c49c-4c48-b0ee-00452d567790", "text": [{"annotations": " bold", "color": "default", "content": "4. \u5751", "link": null, "type": "text"}], "type": "heading_1"}, {"children": null, "text": [{"annotations": "", "color": "default", "content": "\u4e3a\u4ec0\u4e48\u8bf4\u662f\u5751\u5462\uff0c\u56e0\u4e3a\u7ed3\u8bba\u7684\u7b2c\u4e09\u6761\u548c\u7b2c\u56db\u6761\uff0c\u5728\u8ba1\u7b97\u4e2darray\u548cmap\u662fnull\u548c\u7a7a\u503c\u5176\u5b9e\u90fd\u662f\u4e00\u6837\u7684\u89c6\u4e3a0\uff0c\u5982\u679c\u6211\u8981\u6c42\u6bcf\u6761\u6570\u636e\u7684\u957f\u5ea6\u548c\uff0c\u90a3\u5982\u679c\u9047\u5230\u4e3anull\u7684array\u548cmap\u5c31\u4f1a\u53d8\u5c11\uff0c\u56e0\u4e3a-1\u4e86\uff1b", "link": null, "type": "text"}], "type": "paragraph"}, {"children": null, "text": [{"annotations": "", "color": "default", "content": "\u540c\u7406\uff0c\u5982\u679c\u662f\u7528length\u8ba1\u7b97string\u957f\u5ea6\u5176\u5b9e\u4e5f\u6ca1\u6709\u7279\u522b\u5927\u7684\u610f\u4e49\uff0c\u56e0\u4e3astring\u4e0d\u4e3a\u7a7a\u90a3\u5c31\u80af\u5b9a\u5c31\u662f\u6709\u503c\u7684\uff0c\u5373\u4e3a1\uff0c\u6240\u4ee5\u4e3a\u4e86\u8fbe\u5230\u4e1a\u52a1\u9700\u6c42\uff0c\u8fd8\u9700\u8981\u6539\u4e00\u4e0bquery\uff1a", "link": null, "type": "text"}], "type": "paragraph"}, {"children": null, "contents": "select \nif(size(array) == -1, 0, size(array)), \nif(size(key_value) == -1, 0, size(key_value)), \nif(length(string) is null, 0, 1)\nfrom tmp.ym_test", "language": "language-sql", "type": "code"}, {"children": null, "text": [{"annotations": " bold", "color": "default", "content": "\u7ed3\u679c", "link": null, "type": "text"}], "type": "paragraph"}, {"children": null, "contents": "| array | key_value | string |\n|-------|-----------|--------|\n| 3     |  2        | 1      |\n| 1     | 1         | 1      |\n|  0    | 0         |  0     |\n| 0     | 0         |  0     |", "language": "language-sql", "type": "code"}, {"children": null, "text": [{"annotations": "", "color": "default", "content": "\u8fd9\u6837\u518d\u53bb\u6c42\u548c\u5c31\u80fd\u5f97\u51fa\u6b63\u786e\u7684\u5143\u7d20\u957f\u5ea6\u4e86\u3002", "link": null, "type": "text"}], "type": "paragraph"}], "cover": null, "create_date": "2019-12-06", "create_time": "", "ga": "UA-92314993-3", "page_title": "hive\u4e2d\u7684\u6570\u7ec4\u3001\u952e\u503c\u578b\u548c\u5b57\u7b26\u4e32\u7684\u957f\u5ea6\u7684\u5751", "site_name": "PRELUDE"}
+        console.log(page_object)
+    </script>
 </head>
 <body>
 
-    <div style="position: absolute; height: 20vw;width: 100%;z-index: 0;">
-        
+
+<!-- header area -->
+
+    <div style="position: absolute; height: 400px;width: 100%;z-index: 0;display: flex; justify-content: center;">
+  
+
+        <div>
+            
+            <div class="header-article">
+    <p><a href="../index.html">PRELUDE</a></p>
+</div>
+            
+            <h1 class="page-title">hive中的数组、键值型和字符串的长度的坑</h1>
+            <i class="page-title">Create At: 2019-12-06 </i>
+        </div>
     </div>
 
 
-    <div class="container">
-    
-        <div class="header-article">
-    <p><a href="../index.html">PRELUDE</a></p>
-</div>
-    
+<!-- body area -->
+    <div class="container" style="padding-top: 450px">
     <div>
-        <h1 class="page-title">hive中的数组、键值型和字符串的长度的坑</h1>
+        
         
 
 
-    
+
+
+
+
+
+
+
+
+
+
+
+<a href=#ff1e1df1-5227-4cb9-9a0f-431c900e6bed class=toc_level_1>1. 准备数据</a>
+
+<a href=#c0ad66e5-93a3-44c7-b462-dde683d4e22a class=toc_level_1>2. 计算长度</a>
+
+<a href=#ae809d71-e881-4f2f-85d8-298c89c2626a class=toc_level_1>3. 结论</a>
+
+<a href=#3cd6da06-c49c-4c48-b0ee-00452d567790 class=toc_level_1>4. 坑</a>
 
     
+
+
+
+
+
 <p>
+        
         
             
 <span class=" default">最近业务有个需求，需要计算一张大宽表中每一行的每一列中有多少个值，其实就是计算值的长度。因为有的列是字符串型，有的是数组型，有的是键值型，在值为空时的表现各不相同。</span>
 
         
+        
     </p>
     
 
-    
-<h2>
+
+
+
+
+<h2 id=ff1e1df1-5227-4cb9-9a0f-431c900e6bed>
         
             
 <span class=" default">1. 准备数据</span>
@@ -59,94 +99,131 @@
     </h2>
     
 
-    
+
+
+
+
 <p>
+        
         
             
 <span class=" default">假设我们有下面的一张表，其中：</span>
 
         
+        
     </p>
     
 
-    
+
+
+
+
 <ul>
         
             <li>
         
             
+                
 <span class=" default">第一行为每一列有多个值的情况</span>
 
+            
         
     </li>
+    
         
             <li>
         
             
+                
 <span class=" default">第二行为每一列有单个值的情况</span>
 
+            
         
     </li>
+    
         
             <li>
         
             
+                
 <span class=" default">第三行为每一列为</span>
 
-        
             
+                
 <span class=" bold default">空值</span>
 
-        
             
+                
 <span class=" default">的情况（</span>
 
-        
             
+                
 <span class=" bold default">不是</span>
 
-        
             
+                
 <span class=" default">null）</span>
 
+            
         
     </li>
+    
         
             <li>
         
             
+                
 <span class=" default">第四行为每一列为</span>
 
-        
             
+                
 <span class=" bold default">空</span>
 
-        
             
+                
 <span class=" default">的情况（为null）</span>
 
+            
         
     </li>
+    
         
     </ul>
     
 
-    
+
+<div style="padding-left: 20px;">
+
+
+
+</div>
+
+
+
+
 <pre><code class=language-sql>select *
 from tmp.ym_test</code></pre>
     
 
-    
+
+
+
+
 <p>
+        
         
             
 <span class=" bold default">结果</span>
 
         
+        
     </p>
     
 
-    
+
+
+
+
 <pre><code class=language-sql>| array                     | key_value                         | string          |
 |---------------------------|-----------------------------------|-----------------|
 | [&#34;item1&#34;,&#34;item2&#34;,&#34;item3&#34;] | {&#34;key1&#34;:&#34;value1&#34;,&#34;key2&#34;:&#34;value2&#34;} | a sample string |
@@ -155,8 +232,11 @@ from tmp.ym_test</code></pre>
 | null                      | null                              | null            |</code></pre>
     
 
-    
-<h2>
+
+
+
+
+<h2 id=c0ad66e5-93a3-44c7-b462-dde683d4e22a>
         
             
 <span class=" bold default">2. 计算长度</span>
@@ -165,22 +245,33 @@ from tmp.ym_test</code></pre>
     </h2>
     
 
-    
+
+
+
+
 <pre><code class=language-sql>select size(array), size(key_value), length(string)
 from tmp.ym_test</code></pre>
     
 
-    
+
+
+
+
 <p>
+        
         
             
 <span class=" bold default">结果</span>
 
         
+        
     </p>
     
 
-    
+
+
+
+
 <pre><code class=language-sql>| array | key_value | string |
 |-------|-----------|--------|
 | 3     |  2        | 15     |
@@ -189,8 +280,11 @@ from tmp.ym_test</code></pre>
 |  -1   |  -1       | null   |</code></pre>
     
 
-    
-<h2>
+
+
+
+
+<h2 id=ae809d71-e881-4f2f-85d8-298c89c2626a>
         
             
 <span class=" bold default">3. 结论</span>
@@ -199,80 +293,234 @@ from tmp.ym_test</code></pre>
     </h2>
     
 
-    
+
+
+
+
 <p>
+        
         
             
 <span class=" default">根据以上结果，结论其实很明显了：</span>
 
         
+        
     </p>
     
 
-    
+
+
+
+
 <ul>
         
             <li>
         
             
+                
 <span class=" bold default">第一行为每一列有多个值的情况：</span>
 
+            
         
     </li>
+    
+        
+
+            
+
+<ul>
         
             <li>
         
             
-<span class=" bold default">第二行为每一列有单个值的情况：</span>
+                
+<span class=" default">array或map的长度，即元素个数；</span>
 
+            
         
     </li>
+    
         
             <li>
         
             
-<span class=" bold default">第三行为每一列为</span>
+                
+<span class=" default">string的字母个数，空格也算。</span>
 
-        
             
-<span class=" bold italic default">空值</span>
-
-        
-            
-<span class=" bold default">的情况（</span>
-
-        
-            
-<span class=" bold italic default">不是</span>
-
-        
-            
-<span class=" bold default">null）：</span>
-
         
     </li>
-        
-            <li>
-        
-            
-<span class=" bold default">第四行为每一列为</span>
-
-        
-            
-<span class=" bold italic default">空</span>
-
-        
-            
-<span class=" bold default">的情况（为null）：</span>
-
-        
-    </li>
+    
         
     </ul>
     
 
+
+        
     
-<h2>
+        
+            <li>
+        
+            
+                
+<span class=" bold default">第二行为每一列有单个值的情况：</span>
+
+            
+        
+    </li>
+    
+        
+
+            
+
+<ul>
+        
+            <li>
+        
+            
+                
+<span class=" default">array或map的长度，即元素个数；</span>
+
+            
+        
+    </li>
+    
+        
+            <li>
+        
+            
+                
+<span class=" default">string的字母个数，空格也算。</span>
+
+            
+        
+    </li>
+    
+        
+    </ul>
+    
+
+
+        
+    
+        
+            <li>
+        
+            
+                
+<span class=" bold default">第三行为每一列为</span>
+
+            
+                
+<span class=" bold italic default">空值</span>
+
+            
+                
+<span class=" bold default">的情况（</span>
+
+            
+                
+<span class=" bold italic default">不是</span>
+
+            
+                
+<span class=" bold default">null）：</span>
+
+            
+        
+    </li>
+    
+        
+
+            
+
+<ul>
+        
+            <li>
+        
+            
+                
+<span class=" default">皆为0；</span>
+
+            
+        
+    </li>
+    
+        
+    </ul>
+    
+
+
+        
+    
+        
+            <li>
+        
+            
+                
+<span class=" bold default">第四行为每一列为</span>
+
+            
+                
+<span class=" bold italic default">空</span>
+
+            
+                
+<span class=" bold default">的情况（为null）：</span>
+
+            
+        
+    </li>
+    
+        
+
+            
+
+<ul>
+        
+            <li>
+        
+            
+                
+<span class=" default">array或map的长度为-1；</span>
+
+            
+        
+    </li>
+    
+        
+            <li>
+        
+            
+                
+<span class=" default">string则仍然是null。</span>
+
+            
+        
+    </li>
+    
+        
+    </ul>
+    
+
+
+        
+    
+        
+    </ul>
+    
+
+
+<div style="padding-left: 20px;">
+
+
+
+</div>
+
+
+
+
+<h2 id=3cd6da06-c49c-4c48-b0ee-00452d567790>
         
             
 <span class=" bold default">4. 坑</span>
@@ -281,27 +529,40 @@ from tmp.ym_test</code></pre>
     </h2>
     
 
-    
+
+
+
+
 <p>
+        
         
             
 <span class=" default">为什么说是坑呢，因为结论的第三条和第四条，在计算中array和map是null和空值其实都是一样的视为0，如果我要求每条数据的长度和，那如果遇到为null的array和map就会变少，因为-1了；</span>
 
         
+        
     </p>
     
 
-    
+
+
+
+
 <p>
+        
         
             
 <span class=" default">同理，如果是用length计算string长度其实也没有特别大的意义，因为string不为空那就肯定就是有值的，即为1，所以为了达到业务需求，还需要改一下query：</span>
 
         
+        
     </p>
     
 
-    
+
+
+
+
 <pre><code class=language-sql>select 
 if(size(array) == -1, 0, size(array)), 
 if(size(key_value) == -1, 0, size(key_value)), 
@@ -309,17 +570,25 @@ if(length(string) is null, 0, 1)
 from tmp.ym_test</code></pre>
     
 
-    
+
+
+
+
 <p>
+        
         
             
 <span class=" bold default">结果</span>
 
         
+        
     </p>
     
 
-    
+
+
+
+
 <pre><code class=language-sql>| array | key_value | string |
 |-------|-----------|--------|
 | 3     |  2        | 1      |
@@ -328,15 +597,24 @@ from tmp.ym_test</code></pre>
 | 0     | 0         |  0     |</code></pre>
     
 
-    
+
+
+
+
 <p>
+        
         
             
 <span class=" default">这样再去求和就能得出正确的元素长度了。</span>
 
         
+        
     </p>
     
+
+
+
+
 
     </div>
     <div class="footer">

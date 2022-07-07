@@ -2,17 +2,50 @@
   min-height: 100vh;
   display:flex; 
   flex-direction:column; 
-  z-index: 2;
 }
 
+hr {
+  max-width: 100%;
+}
+
+.toc_level_1 {
+  display: block;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.toc_level_2 {
+  display: block;
+  padding-left: 20px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.toc_level_3 {
+  display: block;
+  padding-left: 40px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+
 .page-title {
-  margin-top: 3rem;
-  margin-bottom: 10rem;
   background-color: var(--bg);
   padding: 1rem 1rem 1rem 1rem;
 }
 
 img {
+  max-width: 100%;
+  max-height: 50vh;
+}
+
+video {
+  max-width: 100%;
+  max-height: 50vh;
+}
+
+
+iframe {
   max-width: 100%;
 }
 
