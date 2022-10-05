@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<title>微信浏览器h5页面音乐自动播放（2020.02可用） - dreambulare</title>
+
+<html lang="en-us" class="h-100">
+    <head>
+        <!-- Global Metadata --><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+<!-- Primary Meta Tags -->
+<title>dreambulare - A blog that might have anything</title>
+<meta name="title" content="dreambulare - A blog that might have anything">
+<meta name="description" content="A blog that might have anything">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://notionpaper.cc/post/6cc146a9-58fb-4b12-987a-37d2964fd902/">
+<meta property="og:title" content="dreambulare - A blog that might have anything">
+<meta property="og:description" content="A blog that might have anything">
+<!-- <meta property="og:image" content={new URL(image, Astro.url)} /> -->
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://notionpaper.cc/post/6cc146a9-58fb-4b12-987a-37d2964fd902/">
+<meta property="twitter:title" content="dreambulare - A blog that might have anything">
+<meta property="twitter:description" content="A blog that might have anything">
+<!-- <meta property="twitter:image" content={new URL(image, Astro.url)} /> -->
+
+    <link rel="stylesheet" href="/assets/index-post-_id_.93819748.css" /></head>
+    <body class="d-flex flex-column h-100">
+        <header>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary bg-gradient">
+		<div class="container">
+			<a class="navbar-brand" href="/">dreambulare</a>
+		</div>
+	</nav>
+</header>
+
+        <main class="flex-shrink-0">
+                <div class="header-image" style="background-image: url()">
+        <div>
+            <h1 class="page-title bg-body">微信浏览器h5页面音乐自动播放（2020.02可用）</h1>
+            <i class="page-title bg-body">Create At: 2020-01-26  </i>
+        </div>
+    </div><div class="container">
+        <div class="card mt-4">
+    <div class="card-body">
+        <a href="#16899d30-8f2f-4880-9909-0458dd2f069b" class="toc_level_1">
+                    1. 传统方法的不可行性
+                </a><a href="#0ffe13ea-af8e-4409-af6e-3c5a34adcc04" class="toc_level_1">
+                    2. 方法
+                </a><a href="#efd96638-273b-4bc1-851a-e0077ea83efb" class="toc_level_1">
+                    3. 音乐加载状态
+                </a>
+    </div>
+</div>
+<p><span class=" default">在做一些基于微信浏览器的h5页面的过程中，客户会希望进入即播放音乐，在搜集资料后找到了一种实际可用的方法。
+需要看Demo的可以直接看最后一个标题。</span></p>
+<h1><span class=" default">1</span><span class=" bold default">. 传统方法的不可行性</span></h1>
+<ul>
+    <li><span class=" bold default">a. </span><span class=" bold code default">autoplay</span><span class=" bold default">属性</span></li>
+</ul>
+<p><span class=" default">HTML 5的 &lt;audio&gt; tag中实际上是有一个叫做 autoplay 的属性的，但是在大多数的现代浏览器中这个属性形同虚设，由于安全性的原因现代浏览器并不允许音频的自动播放，毕竟广告网页中会滥用这个属性导致体验非常不好。</span></p>
+<ul>
+    <li><span class=" bold default">b. </span><span class=" bold code default">.play()</span><span class=" bold default"> 方法</span></li>
+</ul>
+<p><span class=" default">同样的，使用 </span><span class=" code default">&lt;audio&gt;</span><span class=" default"> tag的</span><span class=" code default">.play()</span><span class=" default">方法也是一样无效，原因同上。</span></p>
+<h1><span class=" bold default">2. 方法</span></h1>
+<p><span class=" bold default">先</span><span class=" bold code default">append</span><span class=" bold default"> 一个 </span><span class=" bold code default">&lt;audio&gt;</span><span class=" bold default"> tag：</span></p>
+<p><span class=" default">在document的DOM结构加载完成之后（当然你也可以用jQ的document.ready），append一个 </span><span class=" code default">&lt;audio&gt;</span><span class=" default"> tag上去，并指定源：</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">//我这里用的是DOMContentLoaded的事件，有浏览器兼容性要求，但是此处不考虑</span></span>
+<span class="line"><span style="color: #C9D1D9">        document.</span><span style="color: #D2A8FF">addEventListener</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">&quot;DOMContentLoaded&quot;</span><span style="color: #C9D1D9">, </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9">){ </span></span>
+<span class="line"><span style="color: #8B949E">//创建一个&lt;audio&gt; tag，并指定属性</span></span>
+<span class="line"><span style="color: #C9D1D9">            </span><span style="color: #FF7B72">var</span><span style="color: #C9D1D9"> audioNode </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> document.</span><span style="color: #D2A8FF">createElement</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">&quot;audio&quot;</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">            audioNode.</span><span style="color: #D2A8FF">setAttribute</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">&quot;src&quot;</span><span style="color: #C9D1D9">,</span><span style="color: #A5D6FF">&quot;./auto.mp3&quot;</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">            audioNode.</span><span style="color: #D2A8FF">setAttribute</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">&quot;id&quot;</span><span style="color: #C9D1D9">,</span><span style="color: #A5D6FF">&quot;player&quot;</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">            audioNode.controls </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">true</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #C9D1D9">            audioNode.</span><span style="color: #D2A8FF">setAttribute</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">&quot;preload&quot;</span><span style="color: #C9D1D9">,</span><span style="color: #A5D6FF">&quot;auto&quot;</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #8B949E">//append到body上</span></span>
+<span class="line"><span style="color: #C9D1D9">            document.body.</span><span style="color: #D2A8FF">appendChild</span><span style="color: #C9D1D9">(audioNode);</span></span>
+<span class="line"><span style="color: #C9D1D9">        })</span></span></code></pre>
+
+<p><span class=" bold default">再利用微信sdk触发播放：</span></p>
+<p><span class=" default">在微信浏览器中打开的网页可以加载微信的js sdk，就是一般用来做微信登陆、分享等等功能的，在sdk ready时的callback可以用来触发</span><span class=" code default">&lt;audio&gt;</span><span class=" default"> tag的 </span><span class=" code default">.play()</span><span class=" default">方法，从而自动播放音乐。</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">//先引用下微信js sdk</span></span>
+<span class="line"><span style="color: #C9D1D9">&lt;</span><span style="color: #7EE787">script</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">src</span><span style="color: #FF7B72">=</span><span style="color: #A5D6FF">&quot;http://res.wx.qq.com/open/js/jweixin-1.0.0.js&quot;</span><span style="color: #C9D1D9">&gt;&lt;/</span><span style="color: #7EE787">script</span><span style="color: #C9D1D9">&gt;</span></span>
+<span class="line"><span style="color: #C9D1D9">&lt;</span><span style="color: #7EE787">script</span><span style="color: #C9D1D9">&gt;</span></span>
+<span class="line"><span style="color: #C9D1D9">function autoPlayAudio() {</span></span>
+<span class="line"><span style="color: #C9D1D9">    wx.</span><span style="color: #D2A8FF">config</span><span style="color: #C9D1D9">({</span></span>
+<span class="line"><span style="color: #8B949E">// 配置信息, 即使不正确也能使用 wx.ready</span></span>
+<span class="line"><span style="color: #C9D1D9">        debug: </span><span style="color: #79C0FF">false</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">        appId: </span><span style="color: #A5D6FF">&#39;&#39;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">        timestamp: </span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">        nonceStr: </span><span style="color: #A5D6FF">&#39;&#39;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">        signature: </span><span style="color: #A5D6FF">&#39;&#39;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">        jsApiList: []</span></span>
+<span class="line"><span style="color: #C9D1D9">    });</span></span>
+<span class="line"><span style="color: #C9D1D9">    wx.</span><span style="color: #D2A8FF">ready</span><span style="color: #C9D1D9">(</span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> () {</span></span>
+<span class="line"><span style="color: #C9D1D9">        </span><span style="color: #FF7B72">var</span><span style="color: #C9D1D9"> globalAudio </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> document.</span><span style="color: #D2A8FF">getElementById</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">&quot;player&quot;</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">        globalAudio.</span><span style="color: #D2A8FF">play</span><span style="color: #C9D1D9">();</span></span>
+<span class="line"><span style="color: #C9D1D9">    });</span></span>
+<span class="line"><span style="color: #C9D1D9">};</span></span>
+<span class="line"><span style="color: #C9D1D9">&lt;/</span><span style="color: #7EE787">script</span><span style="color: #C9D1D9">&gt;</span></span></code></pre>
+
+<h1><span class=" bold default">3. 音乐加载状态</span></h1>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">var</span><span style="color: #C9D1D9"> globalAudio </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> document.</span><span style="color: #D2A8FF">getElementById</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">&quot;player&quot;</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #FF7B72">var</span><span style="color: #C9D1D9"> statusP </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> document.</span><span style="color: #D2A8FF">getElementById</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">&quot;status&quot;</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">globalAudio.</span><span style="color: #D2A8FF">onloadstart</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9">(){</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">&quot;开始加载&quot;</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">    statusP.innerHTML </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;正在加载&quot;</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #C9D1D9">    globalAudio.</span><span style="color: #D2A8FF">oncanplay</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9">(){</span></span>
+<span class="line"><span style="color: #C9D1D9">        statusP.innerHTML </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">&quot;加载完成&quot;</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #C9D1D9">        </span><span style="color: #D2A8FF">autoPlayAudio</span><span style="color: #C9D1D9">();</span></span>
+<span class="line"><span style="color: #C9D1D9">    }</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+
+<p></p>
+<p></p>
+
+    </div>
+        </main>
+        <footer class="footer mt-auto py-4">
+    <div class="container">
+        <p class="text-center text-muted border-top">
+            Created by <a href="https://github.com/imyangmo/notionpaper">NotionPaper</a>, a tool that helps you use Notion like a CMS.
+        </p>
+        <p class="text-center text-muted">
+            This site uses <a href="https://getbootstrap.com/">Bootstrap</a>
+        </p>
+    </div>
+  </footer>
+
+
+        <!-- <script async src={{'https://www.googletagmanager.com/gtag/js?id=' + index_object.ga}}></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag(' js', new Date()); gtag('config', '{{index_object.ga}}'); 
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> -->
+	</body></html>

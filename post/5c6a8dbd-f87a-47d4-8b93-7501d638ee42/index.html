@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<title>FFmpeg使用显卡进行转码硬件加速的记录，以及和软压的比较 - dreambulare</title>
+
+<html lang="en-us" class="h-100">
+    <head>
+        <!-- Global Metadata --><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+<!-- Primary Meta Tags -->
+<title>dreambulare - A blog that might have anything</title>
+<meta name="title" content="dreambulare - A blog that might have anything">
+<meta name="description" content="A blog that might have anything">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://notionpaper.cc/post/5c6a8dbd-f87a-47d4-8b93-7501d638ee42/">
+<meta property="og:title" content="dreambulare - A blog that might have anything">
+<meta property="og:description" content="A blog that might have anything">
+<!-- <meta property="og:image" content={new URL(image, Astro.url)} /> -->
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://notionpaper.cc/post/5c6a8dbd-f87a-47d4-8b93-7501d638ee42/">
+<meta property="twitter:title" content="dreambulare - A blog that might have anything">
+<meta property="twitter:description" content="A blog that might have anything">
+<!-- <meta property="twitter:image" content={new URL(image, Astro.url)} /> -->
+
+    <link rel="stylesheet" href="/assets/index-post-_id_.93819748.css" /></head>
+    <body class="d-flex flex-column h-100">
+        <header>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary bg-gradient">
+		<div class="container">
+			<a class="navbar-brand" href="/">dreambulare</a>
+		</div>
+	</nav>
+</header>
+
+        <main class="flex-shrink-0">
+                <div class="header-image" style="background-image: url(https://www.notion.so/images/page-cover/met_william_morris_1877_willow.jpg)">
+        <div>
+            <h1 class="page-title bg-body">FFmpeg使用显卡进行转码硬件加速的记录，以及和软压的比较</h1>
+            <i class="page-title bg-body">Create At: 2019-08-09  </i>
+        </div>
+    </div><div class="container">
+        <div class="card mt-4">
+    <div class="card-body">
+        <a href="#3f2bab7c-e4af-494a-a781-3358a98de3cf" class="toc_level_1">
+                    1. 环境
+                </a><a href="#83b02239-e07b-402c-bc8e-7cb0a59c683d" class="toc_level_1">
+                    2. 过程
+                </a><a href="#c375c679-8bba-4d69-a422-4819fe36ea06" class="toc_level_1">
+                    3. 不同cq值的对比
+                </a><a href="#7631eb16-ed65-4c52-a288-60f5dc553698" class="toc_level_1">
+                    4. 结论
+                </a>
+    </div>
+</div>
+<h1><span class=" bold default">1. 环境</span></h1>
+<p><span class=" default">操作系统：Windows 10</span></p>
+<p><span class=" default">FFmpeg版本：20171204</span></p>
+<p><span class=" default">显卡：GTX 965M</span></p>
+<h1><span class=" bold default">2. 过程</span></h1>
+<p><span class=" default">最近是有比较多的压制需求，使用</span><span class=" code default">libx265</span><span class=" default">软压的速度实在是慢的受不了，所以还是希望能用显卡硬压起码速度快一点。之前有人跟我提过硬压质量似乎不及软压，但是决定还是试一试。在ffmpeg官网找到硬压的</span><a href="https://trac.ffmpeg.org/wiki/HWAccelIntro" class=" default" target="_blank">相关信息</a><span class=" default">。</span></p>
+<p><span class=" default">由于我用的是windows，所以驱动基本没有特别配置。而且windows版的ffmpeg也是参数配置好的，所以这方面没有考虑太多。linux平台可能需要配置一下参数啥的。</span></p>
+<p><span class=" default">压制分为两步，先是对视频解码再编码。ffmpeg在两步都提供了硬件加速方案。</span></p>
+<p><span class=" default">在官网给出的例子是基于h264的，h265的硬件参数啥的可以用：</span></p>
+<p><span class=" code default">ffmpeg -codecs | sls cuvid</span><span class=" default"> (备注：sls是powershell的命令，类似于linux下的grep命令)</span></p>
+<p><span class=" default">可以看到这条：</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">DEV.L. hevc H.265 / HEVC (High Efficiency Video Coding) (decoders: hevc hevc_qsv hevc_cuvid ) (encoders: libx265 nvenc_hevc hevc_nvenc hevc_qsv )</span></span></code></pre>
+
+<p><span class=" default">解码器提供了</span></p>
+<ul>
+    <li><span class=" code default">hevc</span></li><li><span class=" code default">hevc_qsv</span></li><li><span class=" code default">hevc_cuvid</span></li>
+</ul>
+<p><span class=" default">编码器提供了</span></p>
+<ul>
+    <li><span class=" code default">libx265</span></li><li><span class=" code default">nvenc_hevc</span></li><li><span class=" code default">hevc_nvenc</span></li><li><span class=" code default">hevc_qsv</span></li>
+</ul>
+<p><span class=" default">但是这个</span><span class=" code default">nvenc_hevc</span><span class=" default">其实已经作废了，你用它的话他会提示你自动给你转到</span><span class=" code default">hevc_nvenc</span><span class=" default">。</span></p>
+<p><span class=" default">解码器的这三个用法我是不太懂有啥区别，也没去做太多研究，因为在实践中使用硬解的话是</span><span class=" bold default">**没办法**</span><span class=" default">同时硬压字幕的，会报错，况且硬解对于整体压制速度并没有太大提升，所以就抛弃硬解了。</span></p>
+<p><span class=" default">编码器的部分，</span><span class=" code default">libx265</span><span class=" default">就是软压，</span><span class=" code default">hevc_qsv</span><span class=" default">似乎是英特尔的集显硬压，具体看</span><a href="https://www.intel.com/content/dam/www/public/us/en/documents/white-papers/cloud-computing-quicksync-video-ffmpeg-white-paper.pdf" class=" default" target="_blank">这里</a><span class=" default">。那么留给n卡的只有</span><span class=" code default">hevc_nvenc</span><span class=" default">可以用了。
+使用这条命令来查看该方法的参数：</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">ffmpeg -h encoder=hevc_nvenc</span></span></code></pre>
+
+<p><span class=" default">可以得到可用参数，我们这里探究的是-cq参数，给出的描述是：</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">-cq </span><span style="color: #FF7B72">&lt;</span><span style="color: #C9D1D9">float</span><span style="color: #FF7B72">&gt;</span><span style="color: #C9D1D9"> E..V.... Set target quality level (0 to 51, 0 means automatic) </span><span style="color: #FF7B72">for</span><span style="color: #C9D1D9"> constant quality mode </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> VBR rate control (from 0 to 51) (default 0)</span></span></code></pre>
+
+<p><span class=" default">我感兴趣的原因是它和libx265，也就是软压的</span><span class=" code default">crf</span><span class=" default">参数很类似。所以接下来都是在其他参数不考虑的情况下对不同cq的对比。</span></p>
+<h1><span class=" bold default">3. 不同cq值的对比</span></h1>
+<p><span class=" default">我用的是谍影重重5的预告片压制测试，原视频数据如下：</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">Format                      </span><span style="color: #79C0FF">:</span><span style="color: #C9D1D9"> MPEG-4</span></span>
+<span class="line"><span style="color: #C9D1D9">Format profile              </span><span style="color: #79C0FF">:</span><span style="color: #C9D1D9"> QuickTime</span></span>
+<span class="line"><span style="color: #C9D1D9">Codec ID                    </span><span style="color: #79C0FF">:</span><span style="color: #C9D1D9"> qt   2005.03 (qt  )</span></span>
+<span class="line"><span style="color: #C9D1D9">File size                   </span><span style="color: #79C0FF">:</span><span style="color: #C9D1D9"> 35.6 MiB</span></span>
+<span class="line"><span style="color: #C9D1D9">Duration                    </span><span style="color: #79C0FF">:</span><span style="color: #C9D1D9"> 30 s 30 ms</span></span>
+<span class="line"><span style="color: #C9D1D9">Overall bit rate            </span><span style="color: #79C0FF">:</span><span style="color: #C9D1D9"> 9 938 kb/s</span></span>
+<span class="line"><span style="color: #C9D1D9">Encoded date                </span><span style="color: #79C0FF">:</span><span style="color: #C9D1D9"> UTC 2016-02-08 06:40:30</span></span>
+<span class="line"><span style="color: #C9D1D9">Tagged date                 </span><span style="color: #79C0FF">:</span><span style="color: #C9D1D9"> UTC 2016-02-08 06:40:30</span></span>
+<span class="line"><span style="color: #C9D1D9">Writing library             </span><span style="color: #79C0FF">:</span><span style="color: #C9D1D9"> Apple QuickTime 7.7.3</span></span></code></pre>
+
+<p><span class=" default">在使用命令</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">ffmpeg -i original.mov -c:v hevc_nvenc -cq X cqx.mp4</span></span></code></pre>
+
+<p><span class=" default">进行测试后。结果如下：</span></p>
+<p><span class=" default">对比视频在</span><a href="https://www.bilibili.com/video/av17105682" class=" default" target="_blank">这里</a><span class=" default">。</span></p>
+<table class="table">
+    <tr>
+                <td><span class=" default">压缩方式</span></td><td><span class=" default">File size </span></td><td><span class=" default">Overall bit rate</span></td>
+            </tr><tr>
+                <td><span class=" bold default">Libx265 （软压）</span></td><td><span class=" default">5.53 MiB</span></td><td><span class=" default">1 544 kb/s</span></td>
+            </tr><tr>
+                <td><span class=" bold default">-cq 0(默认)</span></td><td><span class=" default">8.21 MiB</span></td><td><span class=" default">2 290 kb/s</span></td>
+            </tr><tr>
+                <td><span class=" bold default">-cq 1</span></td><td><span class=" default">8.21 MiB</span></td><td><span class=" default">2 290 kb/s</span></td>
+            </tr><tr>
+                <td><span class=" bold default">-cq 10</span></td><td><span class=" default">8.21 MiB</span></td><td><span class=" default">2 290 kb/s</span></td>
+            </tr><tr>
+                <td><span class=" bold default">-cq 20</span></td><td><span class=" default">8.21 MiB</span></td><td><span class=" default">2 290 kb/s</span></td>
+            </tr><tr>
+                <td><span class=" bold default">-cq 30</span></td><td><span class=" default">8.20 MiB</span></td><td><span class=" default">2 286 kb/s</span></td>
+            </tr><tr>
+                <td><span class=" bold default">-cq 35</span></td><td><span class=" default">3.06 MiB</span></td><td><span class=" default">855 kb/s</span></td>
+            </tr><tr>
+                <td><span class=" bold default">-cq 38</span></td><td><span class=" default">3.06 MiB</span></td><td><span class=" default">855 kb/s</span></td>
+            </tr><tr>
+                <td><span class=" bold default">-cq 41</span></td><td><span class=" default">3.06 MiB</span></td><td><span class=" default">855 kb/s</span></td>
+            </tr><tr>
+                <td><span class=" bold default">-cq 51</span></td><td><span class=" default">1.41 MiB</span></td><td><span class=" default">392 kb/s</span></td>
+            </tr>
+</table>
+<h1><span class=" bold default">4. 结论</span></h1>
+<p><span class=" default">可以看到cq在1到30的变化并不大，在41以上画面基本上是没办法看了。在和libx265的默认软压对比后，-cq值落在35到40之间是比较好的选择。
+在后续的实际应用中，我在压制画面动作较少的视频，如交响乐视频的情况下，-cq 37是一个对于我来说比较好的选择。</span></p>
+
+    </div>
+        </main>
+        <footer class="footer mt-auto py-4">
+    <div class="container">
+        <p class="text-center text-muted border-top">
+            Created by <a href="https://github.com/imyangmo/notionpaper">NotionPaper</a>, a tool that helps you use Notion like a CMS.
+        </p>
+        <p class="text-center text-muted">
+            This site uses <a href="https://getbootstrap.com/">Bootstrap</a>
+        </p>
+    </div>
+  </footer>
+
+
+        <!-- <script async src={{'https://www.googletagmanager.com/gtag/js?id=' + index_object.ga}}></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag(' js', new Date()); gtag('config', '{{index_object.ga}}'); 
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> -->
+	</body></html>

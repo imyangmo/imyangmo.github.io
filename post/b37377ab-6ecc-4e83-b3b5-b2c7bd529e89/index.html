@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<title>RFCHOST的GIA线路评测及搭建v2ray的曲折历程 - dreambulare</title>
+
+<html lang="en-us" class="h-100">
+    <head>
+        <!-- Global Metadata --><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+<!-- Primary Meta Tags -->
+<title>dreambulare - A blog that might have anything</title>
+<meta name="title" content="dreambulare - A blog that might have anything">
+<meta name="description" content="A blog that might have anything">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://notionpaper.cc/post/b37377ab-6ecc-4e83-b3b5-b2c7bd529e89/">
+<meta property="og:title" content="dreambulare - A blog that might have anything">
+<meta property="og:description" content="A blog that might have anything">
+<!-- <meta property="og:image" content={new URL(image, Astro.url)} /> -->
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://notionpaper.cc/post/b37377ab-6ecc-4e83-b3b5-b2c7bd529e89/">
+<meta property="twitter:title" content="dreambulare - A blog that might have anything">
+<meta property="twitter:description" content="A blog that might have anything">
+<!-- <meta property="twitter:image" content={new URL(image, Astro.url)} /> -->
+
+    <link rel="stylesheet" href="/assets/index-post-_id_.93819748.css" /></head>
+    <body class="d-flex flex-column h-100">
+        <header>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary bg-gradient">
+		<div class="container">
+			<a class="navbar-brand" href="/">dreambulare</a>
+		</div>
+	</nav>
+</header>
+
+        <main class="flex-shrink-0">
+                <div class="header-image" style="background-image: url()">
+        <div>
+            <h1 class="page-title bg-body">RFCHOST的GIA线路评测及搭建v2ray的曲折历程</h1>
+            <i class="page-title bg-body">Create At: 2018-12-10 00:00:00 </i>
+        </div>
+    </div><div class="container">
+        <div class="card mt-4">
+    <div class="card-body">
+        <a href="#691fedd2-3c21-46f6-b769-d010490cdd1c" class="toc_level_1">
+                    一、事起
+                </a><a href="#75eca19c-a45d-4b01-859f-f38dec4e063c" class="toc_level_1">
+                    二、评测
+                </a><a href="#1692b0b0-7f0c-467d-9324-da9fd49e81a1" class="toc_level_2">
+                    2.1 上海电信Traceroute
+                </a><a href="#908d2c22-2384-4e80-8712-a6643940ff39" class="toc_level_2">
+                    2.2 上海联通Traceroute
+                </a><a href="#9b6d7185-c59c-42d2-ae81-fdfb784872b5" class="toc_level_2">
+                    2.3 回程Traceroute到上海BGP
+                </a><a href="#6204e0a0-424a-4050-9e9b-b102ac53bdd2" class="toc_level_2">
+                    2.4 带宽
+                </a><a href="#dcf0f75b-012a-4d61-ad9d-c287d75fd920" class="toc_level_1">
+                    三、在该机器上安装v2ray遇到的坑
+                </a><a href="#5dfbd134-e037-4ef5-8ca0-5d0b8e29a9da" class="toc_level_2">
+                    3.1 默认不配置SSH
+                </a><a href="#fb3ccd06-b6fc-4544-8e08-53eb2ae881d0" class="toc_level_2">
+                    3.2 系统时钟不同步
+                </a><a href="#5a172acb-9b66-4f8b-a410-c1ecef729120" class="toc_level_2">
+                    3.3 默认同时开启iptables和firewalld
+                </a>
+    </div>
+</div>
+<p><span class=" default">注：该文章写于2018年12月，信息未必能够反映现今状况。</span></p>
+<h1><span class=" default">一、</span><span class=" bold default">事起</span></h1>
+<p><span class=" default">之前买的搬瓦工GIA线路，其实用的还行，就是不知道为啥播spotify有点卡。照说youtube都不卡spotify实在是没理由卡。那就顺便看看新的选择吧，看到网上RFCHOST风评不错，那就试试看吧。</span></p>
+<p><span class=" default">他家GIA线路是月付8.99 USD，但是选季付及以上都是7.99 USD每月，竟然没有优惠。这个价格和搬瓦工，甚至和阿里云国际比确实是没啥竞争力。</span></p>
+<p><span class=" default">付款暂时不支持信用卡，只能用支付宝。有点蛋疼。</span></p>
+<h1><span class=" default">二、</span><span class=" bold default">评测</span></h1>
+<p><span class=" default">在周末的晚上和白天分别测了一次，结果比较稳定。</span></p>
+<h2><span class=" default">2.1 </span><span class=" bold default">上海电信Traceroute</span></h2>
+<p><span class=" default">可以看到是CN2的线路。</span></p>
+<img src="../assets/93a1205b-c7d0-40e4-baf2-664976c3f742" class="rounded mx-auto d-block py-2">
+<h2><span class=" default">2.2 </span><span class=" bold default">上海联通Traceroute</span></h2>
+<p><span class=" default">也是直接走的电信出口。</span></p>
+<img src="../assets/b51bea25-9add-483b-b8eb-5c4ece268e61" class="rounded mx-auto d-block py-2">
+<h2><span class=" default">2.3 </span><span class=" bold default">回程Traceroute到上海BGP</span></h2>
+<img src="../assets/b0c2c9f1-7128-4d0e-a6ac-865dcb22a11a" class="rounded mx-auto d-block py-2">
+<h2><span class=" default">2.4 带宽</span></h2>
+<p><span class=" default">周末白天的情况比较好。</span></p>
+<p><span class=" default">这台机器的ip估计是从上海广播的，speedtest直接识别为上海的ip了，给匹配了个上海的测速点：</span></p>
+<img src="../assets/62e58697-54fa-4170-b8bb-5c55eb4d09df" class="rounded mx-auto d-block py-2">
+<p><span class=" default">强行指定为洛杉矶的测速点之后：</span></p>
+<img src="../assets/1d90417b-ce4e-460a-8a0b-ae9536f46162" class="rounded mx-auto d-block py-2">
+<h1><span class=" default">三、</span><span class=" bold default">在该机器上安装v2ray遇到的坑</span></h1>
+<h2><span class=" default">3.1 </span><span class=" bold default">默认不配置SSH</span></h2>
+<p><span class=" default">他们家的机器可能都是默认不配置SSH的。只能从官网进VNC安装SSH。
+要注意他们是开始SELinux的，所以如果直接制定非22端口的SSH连接的话会显示permission denied，不能绑定：</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">Dec 09 01:16:33 RFCHOST-181208-FF9V sshd[16197]: error: Bind to port 1025 on 0.0.0.0 failed: Permission denied.</span></span>
+<span class="line"><span style="color: #C9D1D9">Dec 09 01:16:33 RFCHOST-181208-FF9V sshd[16197]: error: Bind to port 1025 on :: failed: Permission denied.</span></span></code></pre>
+
+<p><span class=" default">所以先要去把SELinux的SSH端口号改了。安装一下SEManage</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">yum install policycoreutils-python</span></span></code></pre>
+
+<p><span class=" default">然后改SSH端口：</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">semanage port -a -t ssh_port_t -p tcp 1234</span></span></code></pre>
+
+<h2><span class=" default">3.2 </span><span class=" bold default">系统时钟不同步</span></h2>
+<p><span class=" default">这个坑真的是神坑。v2ray对于客户端和服务端的时间差不得超过90秒，我在配置完成v2ray之后，之前另外一台服务器上用的好好的同一个配置文件，这台服务器不行。chrome打开直接显示:</span></p>
+<img src="../assets/be7d0443-4335-49eb-a20a-8bb6dcdd747e" class="rounded mx-auto d-block py-2">
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">无法访问此网站 www.google.com 意外终止了连接。</span></span></code></pre>
+
+<p><span class=" default">原本以为是防火墙的原因没开端口。直接清空</span><span class=" code default">iptables</span><span class=" default">，</span><span class=" code default">stop firewalld</span><span class=" default">，仍然不行。</span></p>
+<p><span class=" default">使用nmap查看端口状态，也是显示为</span><span class=" code default">open</span><span class=" default">，十分蛋疼。</span></p>
+<p><span class=" default">突然想到之前帮别人配置过一次遇到过类似的问题。</span><span class=" code default">date -R</span><span class=" default">查看系统时间，果然错了。改完修复了。</span></p>
+<h2><span class=" default">3.3 </span><span class=" bold default">默认同时开启</span><span class=" bold code default">iptables</span><span class=" bold default">和</span><span class=" bold code default">firewalld</span></h2>
+<p><span class=" default">我是知道centos 7是默认开始firewalld的，但是没想到这台机器同时开启了iptables和firewalld...第一次配置的时候是没发现这个问题，直到nmap扫描端口是</span><span class=" code default">filtered</span><span class=" default">的才发觉到。直接禁用firewalld：</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">service firewalld stop</span></span>
+<span class="line"><span style="color: #C9D1D9">systemctl disable firewalld.service</span></span></code></pre>
+
+
+    </div>
+        </main>
+        <footer class="footer mt-auto py-4">
+    <div class="container">
+        <p class="text-center text-muted border-top">
+            Created by <a href="https://github.com/imyangmo/notionpaper">NotionPaper</a>, a tool that helps you use Notion like a CMS.
+        </p>
+        <p class="text-center text-muted">
+            This site uses <a href="https://getbootstrap.com/">Bootstrap</a>
+        </p>
+    </div>
+  </footer>
+
+
+        <!-- <script async src={{'https://www.googletagmanager.com/gtag/js?id=' + index_object.ga}}></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag(' js', new Date()); gtag('config', '{{index_object.ga}}'); 
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> -->
+	</body></html>

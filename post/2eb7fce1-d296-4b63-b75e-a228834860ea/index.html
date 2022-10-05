@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<title>如何一步步检测你的服务器是否被墙（防火墙机制猜测） - dreambulare</title>
+
+<html lang="en-us" class="h-100">
+    <head>
+        <!-- Global Metadata --><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+<!-- Primary Meta Tags -->
+<title>dreambulare - A blog that might have anything</title>
+<meta name="title" content="dreambulare - A blog that might have anything">
+<meta name="description" content="A blog that might have anything">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://notionpaper.cc/post/2eb7fce1-d296-4b63-b75e-a228834860ea/">
+<meta property="og:title" content="dreambulare - A blog that might have anything">
+<meta property="og:description" content="A blog that might have anything">
+<!-- <meta property="og:image" content={new URL(image, Astro.url)} /> -->
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://notionpaper.cc/post/2eb7fce1-d296-4b63-b75e-a228834860ea/">
+<meta property="twitter:title" content="dreambulare - A blog that might have anything">
+<meta property="twitter:description" content="A blog that might have anything">
+<!-- <meta property="twitter:image" content={new URL(image, Astro.url)} /> -->
+
+    <link rel="stylesheet" href="/assets/index-post-_id_.93819748.css" /></head>
+    <body class="d-flex flex-column h-100">
+        <header>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary bg-gradient">
+		<div class="container">
+			<a class="navbar-brand" href="/">dreambulare</a>
+		</div>
+	</nav>
+</header>
+
+        <main class="flex-shrink-0">
+                <div class="header-image" style="background-image: url()">
+        <div>
+            <h1 class="page-title bg-body">如何一步步检测你的服务器是否被墙（防火墙机制猜测）</h1>
+            <i class="page-title bg-body">Create At: 2019-07-30  </i>
+        </div>
+    </div><div class="container">
+        <div class="card mt-4">
+    <div class="card-body">
+        <a href="#992546bd-d05f-4afa-a5d1-46e53a31eefb" class="toc_level_1">
+                    写在网络安全周：防火墙机制猜测
+                </a><a href="#9bc731e8-df7a-4694-8969-588befd6a2db" class="toc_level_2">
+                    经验
+                </a><a href="#fdefee86-bc4c-487a-b694-7ed507eaf5b3" class="toc_level_2">
+                    看法
+                </a><a href="#9ae0829d-887d-430d-a99f-8b98ea61de30" class="toc_level_1">
+                    零、正文
+                </a><a href="#20abdfaf-b238-4574-a512-2d10a0e1a748" class="toc_level_1">
+                    一、排除DNS污染
+                </a><a href="#606306ef-1b69-4919-a0ae-03cd65882e39" class="toc_level_1">
+                    二、Ping检测
+                </a><a href="#4859bdaf-dccc-4f19-bc81-d37e1b4e0566" class="toc_level_1">
+                    三、tcp连通性检测
+                </a><a href="#e295ae4f-1095-48cb-a984-0138bd22080f" class="toc_level_1">
+                    四、udp连通性检测
+                </a>
+    </div>
+</div>
+<h1><span class=" bold default">写在网络安全周：防火墙机制猜测</span></h1>
+<p><span class=" bold default">Sept.18.2019更新: </span><span class=" default">这段不讨论技术细节，只是说一些我的想法。</span></p>
+<h2><span class=" bold default">经验</span></h2>
+<p><span class=" default">每隔一段时间就会新出一种科学上网方式，例如刚开始的l2tp vpn，到ss，到后来的ssr，v2ray等等，没有一种方式是能够保证完全躲过检测的。只要你的网络传输是公网，就必然经过防火墙，那么就必然会被检测。</span></p>
+<p><span class=" default">实践证明，在公网环境下的</span><span class=" bold default">任何方法</span><span class=" default">实际上都是会被探测到，近两年每次临近重大日期都会发生大规模ban ip的情况足够说明了防火墙已经有了足够的探测能力，只不过看防火墙想不想管罢了。</span><span class=" bold default">无论</span><span class=" default">是用的什么加密方式、端口号、ip段、是否ssh直连、是否架设了人畜无害的网站 都没有所谓。即便是使用了v2ray+使用cloudflare cdn套ws的方法。</span></p>
+<p><span class=" default">这个就跟知乎上看到过的一篇文章道理是一样，假如我是gfw，我并不需要破解你的加密协议知道你传输了些什么内容，我只知道大陆有大量加密连接链接到境外某一ip或主机，而且流量较大，则我有理由猜测你是在做什么。</span></p>
+<p><span class=" default">根据以往的经验，封锁的严重程度如下：</span></p>
+<p><span class=" default">1. 单协议 + 单端口号 封锁：如使用了tcp 3000端口进行富强，那么只封tcp 3000。其他端口不受影响，其症状为tcp 3000无法通信，其他正常。实际上由于tcp通信的方式，tcp封禁的方式也很多样，这里就不细说了。</span></p>
+<p><span class=" default">2. 单协议 封锁：tcp直接全部无法通信，此时icmp(ping)或者udp通信正常。</span></p>
+<p><span class=" default">3. ip封锁：无法和该ip进行通信。</span></p>
+<p><span class=" default">4. 域名污染：域名被污染，下面的种类很多，例如无法解析（返回投毒ip）。</span></p>
+<p><span class=" default">防火墙为双向防火墙，因为通过traceroute可以观察到两种情况，一种是流量无法出境，一种是流量能够出境但是无法入境。</span></p>
+<h2><span class=" bold default">看法</span></h2>
+<p><span class=" default">还是那句话，其实只要你人在大陆，你无论做什么都是老大哥是一直都是知道的。有人认为暗网足够安全，但是实际上并不是，因为我亲眼见过。实际上如果你看过telegram的协议，tg实际上也并不安全。专线网络可能会不够那么安全，但是公网必定不安全。</span></p>
+<h1><span class=" default">零、</span><span class=" bold default">正文</span></h1>
+<p><span class=" default">由于在你到你的服务器间有大家都懂的不稳定的因素存在，在爱国上网软件无法链接时需要判断是否是这个不稳定因素造成的。记录一下我平常的判断方法。</span></p>
+<p><span class=" default">当然前提是服务器端和客户端已经配置正确。</span></p>
+<h1><span class=" default">一、</span><span class=" bold default">排除DNS污染</span></h1>
+<p><span class=" default">之前遇到过的一个情况，线路是通的，但是就是访问不上，最后发现是本机使用的DNS被污染。</span></p>
+<p><span class=" default">虽然现在有些爱国上网工具已经不再使用客户端DNS进行域名解析，但是某些特殊情况下利用客户端DNS解析的时候就需要排查这个问题。</span></p>
+<p><span class=" default">在我目前遇到情况下看来，在此情况下使用nslookup每次都会返回不同的垃圾ip，并且不像正常情况下那样的返回看起来就不一样的ip。</span></p>
+<img src="../assets/c107beab-ad39-4636-b7bc-9450502167c5" class="rounded mx-auto d-block py-2">
+<p><span class=" default">如果你拿这个ip去查，就会发现就是个垃圾ip。</span></p>
+<img src="../assets/5e0b0d92-4bde-4b79-b50a-a5fd25e698bb" class="rounded mx-auto d-block py-2">
+<p><span class=" default">但是如果用无污染的dns查询则是返回的正常结果。例如我这里用的是中科大的dns。</span></p>
+<img src="../assets/19af42f5-b2b4-4ed6-93b2-4411699c06e0" class="rounded mx-auto d-block py-2">
+<p><span class=" default">大家也可以自行查一下这个ip。</span></p>
+<p><span class=" default">由于dns查询的特性，境外的dns服务基本上都是属于</span><span class=" bold default">不可用</span><span class=" default">的状态。所以不要以为把dns改成8.8.8.8就万事大吉了。</span></p>
+<h1><span class=" default">二、</span><span class=" bold default">Ping检测</span></h1>
+<p><span class=" default">这是比较原始，在一定情况下有效的方法。</span></p>
+<p><span class=" default">前提是服务器的防火墙允许了icmp，也就是不禁ping。一般典型的服务器</span><span class=" bold default">畅通</span><span class=" default">的ping情况如下：</span></p>
+<img src="../assets/9dc22960-9008-4a90-8606-61c412318885" class="rounded mx-auto d-block py-2">
+<p><span class=" default">一般典型的服务器</span><span class=" bold default">不畅通</span><span class=" default">的ping情况如下：</span></p>
+<img src="../assets/6b636910-25c2-4f0b-b601-c7b15106c466" class="rounded mx-auto d-block py-2">
+<p><span class=" default">如果可以确定之前服务器是可ping通的但是某天突然ping不通了，可以初步确定你的服务器ip被照顾了。</span></p>
+<h1><span class=" default">三、</span><span class=" bold default">tcp连通性检测</span></h1>
+<p><span class=" default">目前可以观察到的现象是，会有tcp阻断的存在，也就是说icmp是通的，udp也是通的，只是tcp是阻断的。那在这种情况下ping通也不能代表什么了。</span></p>
+<p><span class=" default">所以此时需要用到nmap这个工具。其实用tcping也是一样的，考虑到之后还需要做udp连通性检测，那就干脆nmap一步到位吧。</span></p>
+<p><span class=" default">基本语法：</span></p>
+<pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">nmap -sS -p 80 www.google.com</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">-sS 使用tcp</span></span>
+<span class="line"><span style="color: #C9D1D9">-sU 使用udp</span></span>
+<span class="line"><span style="color: #C9D1D9">-p 80 指定端口</span></span></code></pre>
+
+<p><span class=" default">畅通时结果如下：</span></p>
+<img src="../assets/5cc06bff-51a9-4671-b383-b54933e319e9" class="rounded mx-auto d-block py-2">
+<p><span class=" default">否则就会如下，也就是检测不到服务器开机的：</span></p>
+<img src="../assets/dc8abdd7-4284-4756-847f-80d7234a1678" class="rounded mx-auto d-block py-2">
+<p><span class=" default">当然也有可能检测到STATE是</span><span class=" code default">filtered</span><span class=" default">或者</span><span class=" code default">closed</span><span class=" default">，一般这两种状态是单协议阻断造成的，比如只阻断了tcp或者udp。这里找不到图就不放了。</span></p>
+<p><span class=" default">建议在本地tcp检测是不通的之后，去</span><a href="https://www.yougetsignal.com/tools/open-ports/" class=" default" target="_blank">一些境外的tcp检测网站</a><span class=" default">试一下是不是通的，用来排除服务器本身的问题。</span></p>
+<h1><span class=" default">四、</span><span class=" bold default">udp连通性检测</span></h1>
+<p><span class=" default">这种检测是针对使用的爱国工具用的是udp方式的，因为udp连通检测工具不像tcping那样好实现，所以还是用nmap来检测。</span></p>
+
+    </div>
+        </main>
+        <footer class="footer mt-auto py-4">
+    <div class="container">
+        <p class="text-center text-muted border-top">
+            Created by <a href="https://github.com/imyangmo/notionpaper">NotionPaper</a>, a tool that helps you use Notion like a CMS.
+        </p>
+        <p class="text-center text-muted">
+            This site uses <a href="https://getbootstrap.com/">Bootstrap</a>
+        </p>
+    </div>
+  </footer>
+
+
+        <!-- <script async src={{'https://www.googletagmanager.com/gtag/js?id=' + index_object.ga}}></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag(' js', new Date()); gtag('config', '{{index_object.ga}}'); 
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> -->
+	</body></html>
