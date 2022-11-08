@@ -26,16 +26,7 @@
         <meta property="twitter:title" content="「初学者向」使用Python处理重复工作，解放工作量【上】 - dreambulare">
         <meta property="twitter:description" content="A blog that might have everything">
         <!-- <meta property="twitter:image" content={new URL(image, Astro.url)} /> -->
-
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92314993-3"></script><script>{let ga3 = "UA-92314993-3";
-
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', ga3);
-            }</script>
-
-    <link rel="stylesheet" href="/assets/index-post-_id_-topic-_topicid_.38f85153.css" /></head>
+    <link rel="stylesheet" href="/assets/index.87a3360e.css" /></head>
     <body class="d-flex flex-column h-100">
         <header>
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary bg-gradient">
@@ -136,22 +127,22 @@
 <p><span class=" default">获取到处理过后的json dict之后，就需要在指定的对象中假如我们需要提交的任务的信息，这样添加完的最终结果就是需要在最后一步put的json。
 裁剪过后的json大概是这样：</span></p>
 <pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #79C0FF">&quot;elementA&quot;</span><span style="color: #C9D1D9">:</span><span style="color: #A5D6FF">&quot;elementa&quot;</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #79C0FF">&quot;elementB&quot;</span><span style="color: #C9D1D9">:</span><span style="color: #A5D6FF">&quot;elementb&quot;</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #79C0FF">&quot;tasks&quot;</span><span style="color: #C9D1D9">:{</span></span>
-<span class="line"><span style="color: #79C0FF">&quot;task1ID&quot;</span><span style="color: #C9D1D9">:{</span></span>
-<span class="line"><span style="color: #79C0FF">&quot;id&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;任务ID&quot;</span><span style="color: #C9D1D9">, </span></span>
-<span class="line"><span style="color: #79C0FF">&quot;desc&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;&quot;</span><span style="color: #C9D1D9">, </span></span>
-<span class="line"><span style="color: #79C0FF">&quot;host&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;ip地址&quot;</span><span style="color: #C9D1D9">, </span></span>
-<span class="line"><span style="color: #79C0FF">&quot;port&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;1024&quot;</span><span style="color: #C9D1D9">, </span></span>
-<span class="line"><span style="color: #79C0FF">&quot;status&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;&quot;</span><span style="color: #C9D1D9">, </span></span>
-<span class="line"><span style="color: #79C0FF">&quot;password&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;密码&quot;</span><span style="color: #C9D1D9">, </span></span>
-<span class="line"><span style="color: #79C0FF">&quot;taskname&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;任务名&quot;</span><span style="color: #C9D1D9">, </span></span>
-<span class="line"><span style="color: #79C0FF">&quot;username&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;登陆用户名&quot;</span><span style="color: #C9D1D9">, </span></span>
-<span class="line"><span style="color: #79C0FF">&quot;createdAt&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;日期&quot;</span><span style="color: #C9D1D9">, </span></span>
-<span class="line"><span style="color: #79C0FF">&quot;updatedAt&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;日期&quot;</span><span style="color: #C9D1D9">, </span></span>
-<span class="line"><span style="color: #79C0FF">&quot;remotepath&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;ftp路径&quot;</span><span style="color: #C9D1D9">, </span></span>
-<span class="line"><span style="color: #79C0FF">&quot;compressionmode&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;targz&quot;</span><span style="color: #C9D1D9">}</span></span>
+<span class="line"><span style="color: #7EE787">&quot;elementA&quot;</span><span style="color: #C9D1D9">:</span><span style="color: #A5D6FF">&quot;elementa&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #7EE787">&quot;elementB&quot;</span><span style="color: #C9D1D9">:</span><span style="color: #A5D6FF">&quot;elementb&quot;</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #7EE787">&quot;tasks&quot;</span><span style="color: #C9D1D9">:{</span></span>
+<span class="line"><span style="color: #7EE787">&quot;task1ID&quot;</span><span style="color: #C9D1D9">:{</span></span>
+<span class="line"><span style="color: #7EE787">&quot;id&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;任务ID&quot;</span><span style="color: #C9D1D9">, </span></span>
+<span class="line"><span style="color: #7EE787">&quot;desc&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;&quot;</span><span style="color: #C9D1D9">, </span></span>
+<span class="line"><span style="color: #7EE787">&quot;host&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;ip地址&quot;</span><span style="color: #C9D1D9">, </span></span>
+<span class="line"><span style="color: #7EE787">&quot;port&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;1024&quot;</span><span style="color: #C9D1D9">, </span></span>
+<span class="line"><span style="color: #7EE787">&quot;status&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;&quot;</span><span style="color: #C9D1D9">, </span></span>
+<span class="line"><span style="color: #7EE787">&quot;password&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;密码&quot;</span><span style="color: #C9D1D9">, </span></span>
+<span class="line"><span style="color: #7EE787">&quot;taskname&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;任务名&quot;</span><span style="color: #C9D1D9">, </span></span>
+<span class="line"><span style="color: #7EE787">&quot;username&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;登陆用户名&quot;</span><span style="color: #C9D1D9">, </span></span>
+<span class="line"><span style="color: #7EE787">&quot;createdAt&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;日期&quot;</span><span style="color: #C9D1D9">, </span></span>
+<span class="line"><span style="color: #7EE787">&quot;updatedAt&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;日期&quot;</span><span style="color: #C9D1D9">, </span></span>
+<span class="line"><span style="color: #7EE787">&quot;remotepath&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;ftp路径&quot;</span><span style="color: #C9D1D9">, </span></span>
+<span class="line"><span style="color: #7EE787">&quot;compressionmode&quot;</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">&quot;targz&quot;</span><span style="color: #C9D1D9">}</span></span>
 <span class="line"><span style="color: #C9D1D9">}</span></span>
 <span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
 

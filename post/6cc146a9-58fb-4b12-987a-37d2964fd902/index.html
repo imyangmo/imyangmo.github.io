@@ -26,16 +26,7 @@
         <meta property="twitter:title" content="微信浏览器h5页面音乐自动播放（2020.02可用） - dreambulare">
         <meta property="twitter:description" content="A blog that might have everything">
         <!-- <meta property="twitter:image" content={new URL(image, Astro.url)} /> -->
-
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92314993-3"></script><script>{let ga3 = "UA-92314993-3";
-
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', ga3);
-            }</script>
-
-    <link rel="stylesheet" href="/assets/index-post-_id_-topic-_topicid_.38f85153.css" /></head>
+    <link rel="stylesheet" href="/assets/index.87a3360e.css" /></head>
     <body class="d-flex flex-column h-100">
         <header>
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary bg-gradient">
@@ -104,7 +95,7 @@
 <pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">//先引用下微信js sdk</span></span>
 <span class="line"><span style="color: #C9D1D9">&lt;</span><span style="color: #7EE787">script</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">src</span><span style="color: #FF7B72">=</span><span style="color: #A5D6FF">&quot;http://res.wx.qq.com/open/js/jweixin-1.0.0.js&quot;</span><span style="color: #C9D1D9">&gt;&lt;/</span><span style="color: #7EE787">script</span><span style="color: #C9D1D9">&gt;</span></span>
 <span class="line"><span style="color: #C9D1D9">&lt;</span><span style="color: #7EE787">script</span><span style="color: #C9D1D9">&gt;</span></span>
-<span class="line"><span style="color: #C9D1D9">function autoPlayAudio() {</span></span>
+<span class="line"><span style="color: #C9D1D9">function autoPlayAudio() </span><span style="color: #FF7B72">{</span></span>
 <span class="line"><span style="color: #C9D1D9">    wx.</span><span style="color: #D2A8FF">config</span><span style="color: #C9D1D9">({</span></span>
 <span class="line"><span style="color: #8B949E">// 配置信息, 即使不正确也能使用 wx.ready</span></span>
 <span class="line"><span style="color: #C9D1D9">        debug: </span><span style="color: #79C0FF">false</span><span style="color: #C9D1D9">,</span></span>
@@ -118,7 +109,7 @@
 <span class="line"><span style="color: #C9D1D9">        </span><span style="color: #FF7B72">var</span><span style="color: #C9D1D9"> globalAudio </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> document.</span><span style="color: #D2A8FF">getElementById</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">&quot;player&quot;</span><span style="color: #C9D1D9">);</span></span>
 <span class="line"><span style="color: #C9D1D9">        globalAudio.</span><span style="color: #D2A8FF">play</span><span style="color: #C9D1D9">();</span></span>
 <span class="line"><span style="color: #C9D1D9">    });</span></span>
-<span class="line"><span style="color: #C9D1D9">};</span></span>
+<span class="line"><span style="color: #FF7B72">}</span><span style="color: #C9D1D9">;</span></span>
 <span class="line"><span style="color: #C9D1D9">&lt;/</span><span style="color: #7EE787">script</span><span style="color: #C9D1D9">&gt;</span></span></code></pre>
 
 <h1><span class=" bold default">3. 音乐加载状态</span></h1>
