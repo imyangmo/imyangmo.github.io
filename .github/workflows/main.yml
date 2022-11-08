@@ -1,0 +1,62 @@
+name: NotionPaper
+run-name: Updating
+env:
+  USER_NAME: NotionpaperBot
+  USER_EMAIL: imyangmo@gmail.com
+  DATABASE_ID: 'a0cb2faf978a4843b982e943986fd3c5'
+  NOTION_VERSION: '2022-02-22'
+  NOTION_API_BASE_URL: 'https://api.notion.com/v1/'
+  GOOGLE_ANALYTICS_3: 'UA-92314993-3'
+  NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+  COMMIT_MSG: 'Updated Posts'
+  DOMAIN_NAME: ''
+on: workflow_dispatch
+jobs:
+  Retrive-and-Publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v3
+        with:
+          ref: 'main'
+      - name: Prepare git
+        run:  |
+          rm -r *
+          ls
+          git config --global user.email ${{ env.USER_EMAIL }}
+          git config --global user.name ${{ env.USER_NAME }}
+      - name: Clone and config Notionpaper
+        run: |
+          mkdir tmp
+          cd tmp
+          git clone https://github.com/imyangmo/notionpaper.git
+          cd notionpaper
+          cd  ${GITHUB_WORKSPACE}/tmp/notionpaper/src
+          rm config.ts
+          echo "export const DATABASE_ID = '${{ env.DATABASE_ID }}';" >> config.ts
+          echo "export const NOTION_TOKEN = '${{ env.NOTION_TOKEN }}';" >> config.ts
+          echo "export const NOTION_VERSION = '${{ env.NOTION_VERSION }}';" >> config.ts
+          echo "export const NOTION_API_BASE_URL =  '${{ env.NOTION_API_BASE_URL }}';" >> config.ts
+          echo "export const GOOGLE_ANALYTICS_3 = '${{ env.GOOGLE_ANALYTICS_3 }}';" >> config.ts
+      - name: Prepare Node
+        uses: actions/setup-node@v3
+        with:
+            node-version: 16.16
+      - name: Retrive contents
+        run: |
+          cd  ${GITHUB_WORKSPACE}/tmp/notionpaper
+          npm ci
+          npm run build
+      - name: Config CNAME file
+        if: ${{ env.DOMAIN_NAME != '' }}
+        run: |
+          cd  ${GITHUB_WORKSPACE}
+          echo "${{ env.DOMAIN_NAME }}" >> CNAME
+      - name: Publish
+        run: |
+          ls
+          mv ${GITHUB_WORKSPACE}/tmp/notionpaper/dist/* ${GITHUB_WORKSPACE}
+          rm -r ${GITHUB_WORKSPACE}/tmp
+          git add .
+          git commit . -m '${{ env.COMMIT_MSG }}'
+          git push
