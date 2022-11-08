@@ -87,18 +87,18 @@
 <p><span class=" default">在周末的晚上和白天分别测了一次，结果比较稳定。</span></p>
 <h2><span class=" default">2.1 </span><span class=" bold default">上海电信Traceroute</span></h2>
 <p><span class=" default">可以看到是CN2的线路。</span></p>
-<img src="../assets/ed0acf79-ca5f-4159-a1e4-c07a5d599841" class="rounded mx-auto d-block py-2">
+<img src="../assets/14d8e3b3-e4a0-4277-81b3-6c41d5f85456" class="rounded mx-auto d-block py-2">
 <h2><span class=" default">2.2 </span><span class=" bold default">上海联通Traceroute</span></h2>
 <p><span class=" default">也是直接走的电信出口。</span></p>
-<img src="../assets/b99d6e5d-482c-4634-a019-337b0dce6b34" class="rounded mx-auto d-block py-2">
+<img src="../assets/7dc97992-51e3-4c90-a307-cbe7548e191e" class="rounded mx-auto d-block py-2">
 <h2><span class=" default">2.3 </span><span class=" bold default">回程Traceroute到上海BGP</span></h2>
-<img src="../assets/39caf815-b04d-416e-8b29-0541b812e26f" class="rounded mx-auto d-block py-2">
+<img src="../assets/ecac85e8-8a34-46dd-b8a1-a4bb0214db68" class="rounded mx-auto d-block py-2">
 <h2><span class=" default">2.4 带宽</span></h2>
 <p><span class=" default">周末白天的情况比较好。</span></p>
 <p><span class=" default">这台机器的ip估计是从上海广播的，speedtest直接识别为上海的ip了，给匹配了个上海的测速点：</span></p>
-<img src="../assets/b2875ee6-353d-4200-ac88-b29d2be1ab09" class="rounded mx-auto d-block py-2">
+<img src="../assets/31c5f6ab-7e21-4ae7-9f29-2dc1b252f9c7" class="rounded mx-auto d-block py-2">
 <p><span class=" default">强行指定为洛杉矶的测速点之后：</span></p>
-<img src="../assets/8d34051f-f61d-486e-a1ee-4b1ff68ddb84" class="rounded mx-auto d-block py-2">
+<img src="../assets/cdbc9fde-ce84-4a7d-85af-239b291d9be1" class="rounded mx-auto d-block py-2">
 <h1><span class=" default">三、</span><span class=" bold default">在该机器上安装v2ray遇到的坑</span></h1>
 <h2><span class=" default">3.1 </span><span class=" bold default">默认不配置SSH</span></h2>
 <p><span class=" default">他们家的机器可能都是默认不配置SSH的。只能从官网进VNC安装SSH。
@@ -114,7 +114,7 @@
 
 <h2><span class=" default">3.2 </span><span class=" bold default">系统时钟不同步</span></h2>
 <p><span class=" default">这个坑真的是神坑。v2ray对于客户端和服务端的时间差不得超过90秒，我在配置完成v2ray之后，之前另外一台服务器上用的好好的同一个配置文件，这台服务器不行。chrome打开直接显示:</span></p>
-<img src="../assets/7c1c25ed-3213-4ce5-98c2-3ac7eab948f3" class="rounded mx-auto d-block py-2">
+<img src="../assets/9441c77e-7dad-4388-9c67-d7cfc0bacfb3" class="rounded mx-auto d-block py-2">
 <pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">无法访问此网站 www.google.com 意外终止了连接。</span></span></code></pre>
 
 <p><span class=" default">原本以为是防火墙的原因没开端口。直接清空</span><span class=" code default">iptables</span><span class=" default">，</span><span class=" code default">stop firewalld</span><span class=" default">，仍然不行。</span></p>

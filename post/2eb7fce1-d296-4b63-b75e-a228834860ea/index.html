@@ -95,19 +95,19 @@
 <p><span class=" default">之前遇到过的一个情况，线路是通的，但是就是访问不上，最后发现是本机使用的DNS被污染。</span></p>
 <p><span class=" default">虽然现在有些爱国上网工具已经不再使用客户端DNS进行域名解析，但是某些特殊情况下利用客户端DNS解析的时候就需要排查这个问题。</span></p>
 <p><span class=" default">在我目前遇到情况下看来，在此情况下使用nslookup每次都会返回不同的垃圾ip，并且不像正常情况下那样的返回看起来就不一样的ip。</span></p>
-<img src="../assets/d9764b34-1b4d-4c3e-9111-5ee2475f7177" class="rounded mx-auto d-block py-2">
+<img src="../assets/6e61e091-07fe-46a5-a02b-45c952c84169" class="rounded mx-auto d-block py-2">
 <p><span class=" default">如果你拿这个ip去查，就会发现就是个垃圾ip。</span></p>
-<img src="../assets/594656a4-c7de-43aa-92e4-9f80868dd686" class="rounded mx-auto d-block py-2">
+<img src="../assets/5499df49-ba7b-41a8-a08c-fb92b8656933" class="rounded mx-auto d-block py-2">
 <p><span class=" default">但是如果用无污染的dns查询则是返回的正常结果。例如我这里用的是中科大的dns。</span></p>
-<img src="../assets/e8d2b49d-308a-4c05-8f11-07580e074b68" class="rounded mx-auto d-block py-2">
+<img src="../assets/079ab3b0-662e-40c6-9f6b-68a50c9586bf" class="rounded mx-auto d-block py-2">
 <p><span class=" default">大家也可以自行查一下这个ip。</span></p>
 <p><span class=" default">由于dns查询的特性，境外的dns服务基本上都是属于</span><span class=" bold default">不可用</span><span class=" default">的状态。所以不要以为把dns改成8.8.8.8就万事大吉了。</span></p>
 <h1><span class=" default">二、</span><span class=" bold default">Ping检测</span></h1>
 <p><span class=" default">这是比较原始，在一定情况下有效的方法。</span></p>
 <p><span class=" default">前提是服务器的防火墙允许了icmp，也就是不禁ping。一般典型的服务器</span><span class=" bold default">畅通</span><span class=" default">的ping情况如下：</span></p>
-<img src="../assets/055e19c6-41c0-4d4e-9e2d-042fde5ec0b4" class="rounded mx-auto d-block py-2">
+<img src="../assets/3cc2de5f-f326-4491-86f1-dd2f08de7c02" class="rounded mx-auto d-block py-2">
 <p><span class=" default">一般典型的服务器</span><span class=" bold default">不畅通</span><span class=" default">的ping情况如下：</span></p>
-<img src="../assets/653d51ec-fe84-4402-b224-eb5634b67f67" class="rounded mx-auto d-block py-2">
+<img src="../assets/91bc0ac0-2dc5-4da4-acd0-32faffcf34e2" class="rounded mx-auto d-block py-2">
 <p><span class=" default">如果可以确定之前服务器是可ping通的但是某天突然ping不通了，可以初步确定你的服务器ip被照顾了。</span></p>
 <h1><span class=" default">三、</span><span class=" bold default">tcp连通性检测</span></h1>
 <p><span class=" default">目前可以观察到的现象是，会有tcp阻断的存在，也就是说icmp是通的，udp也是通的，只是tcp是阻断的。那在这种情况下ping通也不能代表什么了。</span></p>
@@ -120,9 +120,9 @@
 <span class="line"><span style="color: #C9D1D9">-p 80 指定端口</span></span></code></pre>
 
 <p><span class=" default">畅通时结果如下：</span></p>
-<img src="../assets/952fb0c6-9b23-4c01-a7fe-ab2aed9a6e28" class="rounded mx-auto d-block py-2">
+<img src="../assets/3088fabb-069f-4174-8422-896a46130bf0" class="rounded mx-auto d-block py-2">
 <p><span class=" default">否则就会如下，也就是检测不到服务器开机的：</span></p>
-<img src="../assets/55e0afdb-fc37-48af-b70e-0f9d7cd54dda" class="rounded mx-auto d-block py-2">
+<img src="../assets/e15ae367-1808-4fa5-a819-62e13927cad8" class="rounded mx-auto d-block py-2">
 <p><span class=" default">当然也有可能检测到STATE是</span><span class=" code default">filtered</span><span class=" default">或者</span><span class=" code default">closed</span><span class=" default">，一般这两种状态是单协议阻断造成的，比如只阻断了tcp或者udp。这里找不到图就不放了。</span></p>
 <p><span class=" default">建议在本地tcp检测是不通的之后，去</span><a href="https://www.yougetsignal.com/tools/open-ports/" class=" default" target="_blank">一些境外的tcp检测网站</a><span class=" default">试一下是不是通的，用来排除服务器本身的问题。</span></p>
 <h1><span class=" default">四、</span><span class=" bold default">udp连通性检测</span></h1>

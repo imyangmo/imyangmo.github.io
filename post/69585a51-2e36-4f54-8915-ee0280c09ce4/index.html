@@ -56,9 +56,9 @@
                     <p><span class=" default">最近做了个案例，客户要求分享在facebook和linkedin上的网页链接是可以显示成卡片样式的。了解了一下开放图谱和使用元数据实现。</span></p>
 <h1><span class=" bold default">1. 基础</span></h1>
 <p><span class=" default">最近做了个案例，客户要求分享链接在facebook上是这种卡片式的：</span></p>
-<img src="../assets/28552a64-c8c7-4a9e-8471-4bc4da5118b4" class="rounded mx-auto d-block py-2">
+<img src="../assets/1db82d32-efb5-4956-9e00-7ef6dbe51473" class="rounded mx-auto d-block py-2">
 <p><span class=" default">找了一下资料，一个叫facebook开放图谱的api，可以实现这种效果。实际上就是用的HTML的元数据(meta data)标签放入指定内容，这样facebook的爬虫就能抓取并展现出来。实际上linkedin也支持这样的元数据并展示成卡片样式：</span></p>
-<img src="../assets/4739e7d6-9de2-49aa-8509-89dd9c7d3355" class="rounded mx-auto d-block py-2">
+<img src="../assets/6ec0b5d1-994b-4a57-aa84-d5746f37ccdf" class="rounded mx-auto d-block py-2">
 <p><a href="https://developers.facebook.com/docs/sharing/webmasters/" class=" default" target="_blank">facebook</a><span class=" default">和</span><a href="https://www.linkedin.com/help/linkedin/answer/46687/making-your-website-shareable-on-linkedin?lang=en" class=" default" target="_blank">linkedin</a><span class=" default">官方给出了文档，应该加入怎样的元数据。</span></p>
 <p><span class=" default">基本的就是如下：</span></p>
 <pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">&lt;</span><span style="color: #7EE787">meta</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">property</span><span style="color: #FF7B72">=</span><span style="color: #A5D6FF">&quot;og:url&quot;</span><span style="color: #C9D1D9">                </span><span style="color: #79C0FF">content</span><span style="color: #FF7B72">=</span><span style="color: #A5D6FF">&quot;点击卡片打开的链接&quot;</span><span style="color: #C9D1D9"> /&gt;</span></span>
@@ -67,15 +67,15 @@
 <span class="line"><span style="color: #C9D1D9">&lt;</span><span style="color: #7EE787">meta</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">property</span><span style="color: #FF7B72">=</span><span style="color: #A5D6FF">&quot;og:image&quot;</span><span style="color: #C9D1D9">              </span><span style="color: #79C0FF">content</span><span style="color: #FF7B72">=</span><span style="color: #A5D6FF">&quot;显示的缩略图 / banner图&quot;</span><span style="color: #C9D1D9"> /&gt;</span></span></code></pre>
 
 <p><span class=" default">这四个元数据是两个站都支持的，也是最基本的，只要有这四个元素就可以显示出最基本的样式：</span></p>
-<img src="../assets/41beefb8-8bb9-4852-af84-64f3b66182d4" class="rounded mx-auto d-block py-2">
+<img src="../assets/a31b5f07-2382-469b-b4b9-fd7a806c2903" class="rounded mx-auto d-block py-2">
 <h1><span class=" bold default">2. 调试工具</span></h1>
 <p><span class=" default">在加上元数据之后可能由于facebook和linkedin的爬虫还没抓取，所以分享出来还是只是一个纯文字的链接。所以这里说一下怎么更快的让这两个站去抓链接以生成开放图谱的卡片。</span></p>
 <p><span class=" default">在我粗略的实验看来，这两个站的策略似乎是有一定分享量才会去抓页面信息，主动抓取似乎得等他们去刷新。</span></p>
 <p><span class=" default">这里有两个工具：一个是facebook的</span><a href="https://developers.facebook.com/tools/debug/sharing/" class=" default" target="_blank">sharing debugger</a><span class=" default">，一个是linkedin的</span><a href="https://www.linkedin.com/post-inspector/inspect/" class=" default" target="_blank">post inspector</a><span class=" default">，这两工具可以查看预览你的网址在这两个站分享出来的样式。</span></p>
 <p><span class=" default">facebook的sharing debugger可以根据现有的网页内容给出他们实际所获取到的元数据信息，并给出预览。同时你也可以点击Time Scraped的右边的</span><span class=" code default">Scrape Again</span><span class=" default">按钮重新让他们获取一次信息。</span></p>
-<img src="../assets/90be5353-abc3-4446-82fa-2d84c32cdd76" class="rounded mx-auto d-block py-2">
+<img src="../assets/9954f102-f131-4aa7-a26b-112e9363f3b9" class="rounded mx-auto d-block py-2">
 <p><span class=" default">linkedin的post inspector可以给出关于网页内容相关的建议，比如图片尺寸小了、描述太短了等等的，相比facebook只会给出技术方面建议要好得多。</span></p>
-<img src="../assets/9c39ef7f-0ddf-409b-ad66-67778b83be29" class="rounded mx-auto d-block py-2">
+<img src="../assets/6b8e9a05-291a-4cf6-ae6c-d1048ed69c16" class="rounded mx-auto d-block py-2">
 
                 </div>
             </div>
