@@ -26,6 +26,15 @@
         <meta property="twitter:title" content="RFCHOST的GIA线路评测及搭建v2ray的曲折历程 - dreambulare">
         <meta property="twitter:description" content="A blog that might have everything">
         <!-- <meta property="twitter:image" content={new URL(image, Astro.url)} /> -->
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92314993-3"></script><script>{const ga3 = "UA-92314993-3";
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', ga3);
+            }</script>
+
     <link rel="stylesheet" href="/assets/index.87a3360e.css" /></head>
     <body class="d-flex flex-column h-100">
         <header>
@@ -37,7 +46,7 @@
 				  <!-- <a class="nav-link active" aria-current="page" href="#">Home</a>
 				  <a class="nav-link" href="#">Features</a>
 				  <a class="nav-link" href="#">Pricing</a> -->
-					<a class="nav-link" href="/topic/e7154a7f-269f-4341-be03-404f1310f626">English Posts</a><a class="nav-link" href="/topic/3fb61467-9402-4f6b-a82b-1529ee2259db">NotionPaper</a><a class="nav-link" href="/topic/pe{Y">个人Review</a><a class="nav-link" href="/topic/9a3ca751-b39d-4ec6-a762-87916e5468ff">前端</a>
+					<a class="nav-link" href="/topic/e7154a7f-269f-4341-be03-404f1310f626">English Posts</a><a class="nav-link" href="/topic/pe{Y">个人Review</a><a class="nav-link" href="/topic/3fb61467-9402-4f6b-a82b-1529ee2259db">NotionPaper</a><a class="nav-link" href="/topic/9a3ca751-b39d-4ec6-a762-87916e5468ff">前端</a>
 				</div>
 			  </div>
 		</div>
@@ -87,18 +96,18 @@
 <p><span class=" default">在周末的晚上和白天分别测了一次，结果比较稳定。</span></p>
 <h2><span class=" default">2.1 </span><span class=" bold default">上海电信Traceroute</span></h2>
 <p><span class=" default">可以看到是CN2的线路。</span></p>
-<img src="../assets/14d8e3b3-e4a0-4277-81b3-6c41d5f85456" class="rounded mx-auto d-block py-2">
+<img src="../assets/371e97c4-6b47-47da-ad1d-c6e2ce60812f" class="rounded mx-auto d-block py-2">
 <h2><span class=" default">2.2 </span><span class=" bold default">上海联通Traceroute</span></h2>
 <p><span class=" default">也是直接走的电信出口。</span></p>
-<img src="../assets/7dc97992-51e3-4c90-a307-cbe7548e191e" class="rounded mx-auto d-block py-2">
+<img src="../assets/98e5a1a7-7143-4ef9-91af-5e40adbabd65" class="rounded mx-auto d-block py-2">
 <h2><span class=" default">2.3 </span><span class=" bold default">回程Traceroute到上海BGP</span></h2>
-<img src="../assets/ecac85e8-8a34-46dd-b8a1-a4bb0214db68" class="rounded mx-auto d-block py-2">
+<img src="../assets/ad981562-d467-44cc-9df7-814396900d4a" class="rounded mx-auto d-block py-2">
 <h2><span class=" default">2.4 带宽</span></h2>
 <p><span class=" default">周末白天的情况比较好。</span></p>
 <p><span class=" default">这台机器的ip估计是从上海广播的，speedtest直接识别为上海的ip了，给匹配了个上海的测速点：</span></p>
-<img src="../assets/31c5f6ab-7e21-4ae7-9f29-2dc1b252f9c7" class="rounded mx-auto d-block py-2">
+<img src="../assets/8a696f31-c87e-4f36-b2ee-bf78e64a755f" class="rounded mx-auto d-block py-2">
 <p><span class=" default">强行指定为洛杉矶的测速点之后：</span></p>
-<img src="../assets/cdbc9fde-ce84-4a7d-85af-239b291d9be1" class="rounded mx-auto d-block py-2">
+<img src="../assets/23364d2e-7b5c-449a-8d05-f8ecd62dc2e6" class="rounded mx-auto d-block py-2">
 <h1><span class=" default">三、</span><span class=" bold default">在该机器上安装v2ray遇到的坑</span></h1>
 <h2><span class=" default">3.1 </span><span class=" bold default">默认不配置SSH</span></h2>
 <p><span class=" default">他们家的机器可能都是默认不配置SSH的。只能从官网进VNC安装SSH。
@@ -114,7 +123,7 @@
 
 <h2><span class=" default">3.2 </span><span class=" bold default">系统时钟不同步</span></h2>
 <p><span class=" default">这个坑真的是神坑。v2ray对于客户端和服务端的时间差不得超过90秒，我在配置完成v2ray之后，之前另外一台服务器上用的好好的同一个配置文件，这台服务器不行。chrome打开直接显示:</span></p>
-<img src="../assets/9441c77e-7dad-4388-9c67-d7cfc0bacfb3" class="rounded mx-auto d-block py-2">
+<img src="../assets/52438a10-f120-4c0b-b7b1-91ea136e4592" class="rounded mx-auto d-block py-2">
 <pre class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">无法访问此网站 www.google.com 意外终止了连接。</span></span></code></pre>
 
 <p><span class=" default">原本以为是防火墙的原因没开端口。直接清空</span><span class=" code default">iptables</span><span class=" default">，</span><span class=" code default">stop firewalld</span><span class=" default">，仍然不行。</span></p>
