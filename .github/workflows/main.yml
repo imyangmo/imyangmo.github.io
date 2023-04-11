@@ -9,7 +9,7 @@ env:
   GOOGLE_ANALYTICS_3: 'UA-92314993-3'
   NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
   COMMIT_MSG: 'Updated Posts'
-  DOMAIN_NAME: 'prelude.cc'
+  DOMAIN_NAME: 'dreambulare.com'
 on: workflow_dispatch
 jobs:
   Retrive-and-Publish:
